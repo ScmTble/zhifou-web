@@ -93,12 +93,13 @@ const state = computed(() => {
 })
 
 const goPostDetail = (id: number) => {
-  router.push({
-    name: 'post',
-    query: {
-      id,
-    },
-  });
+  console.log(id)
+  // router.push({
+  //   name: 'post',
+  //   query: {
+  //     id,
+  //   },
+  // });
 };
 
 

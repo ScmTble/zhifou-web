@@ -1,5 +1,5 @@
 <template>
-  <n-card size="medium">
+  <n-card size="medium" class="nav-title-card">
     <div class="nav-main">
       <div class="nav-left">
         <n-button class="back-btn" v-if="back" @click="goBack" quaternary circle size="small">
@@ -60,17 +60,25 @@ const goBack = () => {
 </script>
 
 <style lang="less" scoped>
-.nav-main {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+.nav-title-card {
+  z-index: 99;
+  width: 100%;
+  top: 0;
+  position: sticky;
 
-  .nav-left {
+
+  .nav-main {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    font-size: medium;
-    font-weight: bolder;
+    justify-content: space-between;
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      font-size: medium;
+      font-weight: bolder;
+    }
   }
 }
 </style>

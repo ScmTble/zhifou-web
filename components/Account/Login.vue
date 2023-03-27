@@ -1,10 +1,10 @@
 <template>
     <div class="user-wrap">
         <div class="login-wrap">
-            <n-button strong secondary round type="primary" @click="triggerAuth('signin')">
+            <n-button strong secondary round type="primary" @click="user.triggerAuth('signin')">
                 登录
             </n-button>
-            <n-button strong secondary round type="info" @click="triggerAuth('signup')">
+            <n-button strong secondary round type="info" @click="user.triggerAuth('signup')">
                 注册
             </n-button>
         </div>
@@ -16,10 +16,6 @@ import useUser from '@/store/user';
 
 const user = useUser()
 
-const triggerAuth = (key: string) => {
-    user.triggerAuth(true)
-    user.triggerAuthKey(key)
-};
 
 </script>
 

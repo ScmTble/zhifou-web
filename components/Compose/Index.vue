@@ -6,10 +6,13 @@
           <n-avatar round :size="30" :src="user.avatar" />
         </div>
         <n-mention type="textarea" size="large" autosize :bordered="false" :loading="loading" :value="file.contents"
-          :prefix="['@', '#']" :options="optionsRef" @search="handleSearch" @update:value="file.updateContents"
+          :prefix="['@']" :options="optionsRef" @search="handleSearch" @update:value="file.updateContents"
           placeholder="说说您的新鲜事..." />
       </div>
+
+      <!-- 上传图标组件 -->
       <ComposeUpload />
+
     </div>
     <div class="compose-wrap" v-else>
       <div class="login-wrap">
@@ -35,9 +38,6 @@ import useFile from '@/store/file';
 const user = useUser();
 const file = useFile()
 
-
-
-
 const loading = ref(false);
 const optionsRef = ref<MentionOption[]>([]);
 const handleSearch = () => {
@@ -52,6 +52,10 @@ const handleSearch = () => {
   padding: 16px;
   box-sizing: border-box;
 
+  .link-preview {
+    margin-left: 45px;
+  }
+
   .compose-line {
     display: flex;
     flex-direction: row;
@@ -62,34 +66,6 @@ const handleSearch = () => {
       display: flex;
       align-items: center;
     }
-
-    &.compose-options {
-      margin-top: 6px;
-      padding-left: 42px;
-      display: flex;
-      justify-content: space-between;
-
-      .submit-wrap {
-        display: flex;
-        align-items: center;
-
-        .text-statistic {
-          margin-right: 8px;
-          width: 20px;
-          height: 20px;
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
-
-  .link-wrap {
-    margin-left: 42px;
-    margin-right: 42px;
-  }
-
-  .eye-wrap {
-    margin-left: 64px;
   }
 
   .login-wrap {

@@ -14,10 +14,8 @@ const useMain = defineStore('main', {
         },
         updateTheme(theme: boolean) {
             if (theme == true) {
-                console.log("update theme dark")
                 this.theme = "dark"
             } else {
-                console.log("update theme light")
                 this.theme = "light"
             }
         }

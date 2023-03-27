@@ -2,7 +2,7 @@
   <div class="compose-line compose-options">
     <n-upload-trigger #="{ handleClick }" abstract>
       <n-button :disabled="props.btnStatus" @click="clickImgHandler(handleClick)" quaternary circle type="primary">
-        <n-icon size="20" color="var(--primary-color)">
+        <n-icon size="20">
           <image-outline />
         </n-icon>
       </n-button>
@@ -10,7 +10,7 @@
 
     <n-upload-trigger #="{ handleClick }" abstract>
       <n-button :disabled="props.btnStatus" @click="clickVideoHandler(handleClick)" quaternary circle type="primary">
-        <n-icon size="20" color="var(--primary-color)">
+        <n-icon size="20">
           <videocam-outline />
         </n-icon>
       </n-button>
@@ -18,11 +18,15 @@
 
     <n-upload-trigger #="{ handleClick }" abstract>
       <n-button :disabled="props.btnStatus" @click="clickAttachHandler(handleClick)" quaternary circle type="primary">
-        <n-icon size="20" color="var(--primary-color)">
-          <attach-outline />
+        <n-icon size="20">
+          <DocumentAttachOutline />
         </n-icon>
       </n-button>
     </n-upload-trigger>
+
+    <ComposeTags />
+
+    <ComposeLinks @click="handleLinkClick" />
   </div>
 </template>
 
@@ -30,8 +34,9 @@
 import {
   ImageOutline,
   VideocamOutline,
-  AttachOutline,
+  DocumentAttachOutline
 } from '@vicons/ionicons5';
+
 const props = withDefaults(
   defineProps<{
     btnStatus?: boolean;
@@ -41,8 +46,14 @@ const props = withDefaults(
   }
 );
 const emit = defineEmits<{
-  (e: 'updateUplodaType', type: string): void
+  (e: 'updateUplodaType', type: string): void,
+  (e: 'linkClick'): void
 }>();
+
+const handleLinkClick = () => {
+  emit('linkClick')
+}
+
 const clickImgHandler = (handleClick: () => void) => {
   emit('updateUplodaType', "public/image")
   handleClick()

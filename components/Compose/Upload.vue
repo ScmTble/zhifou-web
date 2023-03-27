@@ -2,29 +2,35 @@
   <n-upload ref="uploadRef" abstract list-type="image" :multiple="true" :max="9" :action="uploadGateway"
     @before-upload="beforeUploadHandler" @finish="finishUpload" @error="failUpload" @remove="removeUpload"
     @update:file-list="file.updateFileQueue">
-    <ComposeUploadTrigger @update-uploda-type="updateHandler" />
+
 
     <div class="submit-wrap">
-      <n-button :loading="submitting" @click="submitPost" type="primary" secondary round>
-        发布
-      </n-button>
+      <div class="wrap-left">
+        <ComposeUploadTrigger @update-uploda-type="updateHandler" @link-click="linksAddShow = !linksAddShow" />
+      </div>
 
-      <n-tooltip trigger="hover" placement="bottom">
-        <template #trigger>
-          <n-progress class="text-statistic" type="circle" :show-indicator="false" status="success" :stroke-width="10"
-            :percentage="(file.contents.length / 200) * 100" />
-        </template>
-        {{ file.contents.length }} / 200
-      </n-tooltip>
+      <div class="wrap-right">
+        <n-tooltip trigger="hover" placement="bottom">
+          <template #trigger>
+            <n-progress class="text-statistic" type="circle" :show-indicator="false" status="success" :stroke-width="10"
+              :percentage="(file.contents.length / 200) * 100" />
+          </template>
+          {{ file.contents.length }} / 200
+        </n-tooltip>
+
+        <n-button :loading="submitting" @click="submitPost" type="primary" secondary round>
+          发布
+        </n-button>
+      </div>
     </div>
-
+    <!-- 添加link -->
+    <div class="link-wrap" v-if="linksAddShow">
+      <n-dynamic-input v-model:value="file.urls" placeholder="请输入以http(s)://开头的链接" :min="0" :max="3">
+        <template #create-button-default> 创建链接 </template>
+      </n-dynamic-input>
+    </div>
     <div class="attachment-list-wrap">
       <n-upload-file-list />
-      <n-dynamic-input v-model:value="file.urls" placeholder="请输入" :max="6">
-        <template #create-button-default>
-          添加链接
-        </template>
-      </n-dynamic-input>
     </div>
   </n-upload>
 </template>
@@ -36,10 +42,13 @@ import useFile from '@/store/file';
 
 const file = useFile();
 const message = useMessage();
+const config = useRuntimeConfig();
 
+const link = ref<string>('');
 const submitting = ref(false);
 const uploadType = ref("public/image")
-const uploadGateway = "https://gin-oss.zeabur.app/upload"
+const uploadGateway = config.public.uploadGateway
+const linksAddShow = ref<boolean>(false);
 
 const beforeUploadHandler = async (data: any) => {
   const { msg, ok } = beforeUpload(uploadType.value, data.file.file?.type, data.file.file?.size)
@@ -67,16 +76,18 @@ const updateHandler = (type: string) => {
   uploadType.value = type
 }
 
-
 const submitPost = () => {
-
+  if (file.contents.length === 0) {
+    message.warning('输入内容')
+  }
 }
 
 </script>
 <style lang="less" scoped>
 .submit-wrap {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 
   .text-statistic {
@@ -85,6 +96,18 @@ const submitPost = () => {
     height: 20px;
     transform: rotate(180deg);
   }
+
+  .wrap-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.link-wrap {
+  margin-left: 40px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .attachment-list-wrap {

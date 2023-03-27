@@ -9,13 +9,15 @@ const useFile = defineStore('file', {
         const attachments = ref<string[]>([]);
         const urls = ref<string[]>([]);
         const contents = ref<string>('');
+        const tags = ref<string[]>([]);
         return {
             queue,
             imgs,
             videos,
             urls,
             attachments,
-            contents
+            contents,
+            tags
         }
     },
     actions: {
@@ -28,8 +30,8 @@ const useFile = defineStore('file', {
         addVideo(u: string) {
             this.videos.push(u)
         },
-        addUrl(u: string) {
-            this.urls.push(u)
+        updateUrsl(value: string[]) {
+            // this.urls = value
         },
         addAttachment(u: string) {
             this.attachments.push(u)
@@ -39,6 +41,13 @@ const useFile = defineStore('file', {
                 return;
             }
             this.contents = contents
+        },
+        updateTags(tags: any[]) {
+            if (tags.length >= 3) {
+                // 最多只能选择2个标签
+                return
+            }
+            this.tags = tags
         }
     },
 })

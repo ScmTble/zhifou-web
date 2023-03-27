@@ -59,7 +59,7 @@ const handleLogin = (e: Event) => {
           message.success('登录成功');
           loading.value = false;
           user.updateUserinfo(res)
-          user.triggerAuth(false)
+          user.hiddenAuth()
           loginForm.username = '';
           loginForm.password = '';
         })

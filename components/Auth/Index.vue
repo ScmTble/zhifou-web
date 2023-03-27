@@ -17,10 +17,10 @@
     </div>
   </n-modal>
 </template>
-
+  
 <script setup lang="ts">
 import useUser from "@/store/user";
-import { userInfo } from '@/apis/auth';
+import { userInfo } from "@/apis/auth";
 const user = useUser();
 
 onMounted(() => {
@@ -29,7 +29,7 @@ onMounted(() => {
     userInfo(token)
       .then((res) => {
         user.updateUserinfo(res)
-        user.triggerAuth(false)
+        user.hiddenAuth();
       })
       .catch((err) => {
         user.userLogout()
@@ -40,7 +40,7 @@ onMounted(() => {
 });
 
 </script>
-
+  
 <style lang="less">
 .auth-wrap {
   margin-top: -30px;

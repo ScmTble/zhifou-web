@@ -6,7 +6,9 @@
         <slot />
       </div>
       <BaseRightbar />
-      <BaseAuth />
+      <ClientOnly>
+        <Auth />
+      </ClientOnly>
     </div>
   </div>
 </template>

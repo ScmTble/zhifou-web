@@ -3,8 +3,8 @@ import { defineStore } from 'pinia';
 const useUser = defineStore('user', {
     // 推荐使用 完整类型推断的箭头函数
     state: () => {
-        const authModalShow = false
-        const authModelTab = 'signin'
+        const authModalShow = ref<boolean>(false)
+        const authModelTab = ref<string>('signin');
         return {
             authModalShow,
             authModelTab,
@@ -18,11 +18,12 @@ const useUser = defineStore('user', {
         }
     },
     actions: {
-        triggerAuth(status: any) {
-            this.authModalShow = status;
-        },
-        triggerAuthKey(key: any) {
+        triggerAuth(key: string) {
+            this.authModalShow = true;
             this.authModelTab = key;
+        },
+        hiddenAuth() {
+            this.authModalShow = false;
         },
         updateUserAvatar(avatar: string) {
             this.avatar = avatar

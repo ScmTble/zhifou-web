@@ -1,6 +1,6 @@
 <template>
-  <n-config-provider :theme="theme">
-    <n-message-provider inline-theme-disabled>
+  <n-config-provider :theme="theme" inline-theme-disabled>
+    <n-message-provider>
       <NuxtLayout>
         <NuxtPage></NuxtPage>
       </NuxtLayout>
@@ -14,8 +14,6 @@ import { darkTheme } from 'naive-ui';
 import useMain from '@/store/main';
 
 const main = useMain();
-const config = useRuntimeConfig()
-
 // console.log(config)
 // console.log(import.meta.env)
 const theme = computed(() => (main.theme === 'dark' ? darkTheme : null));
