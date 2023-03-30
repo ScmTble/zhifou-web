@@ -29,13 +29,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Search } from '@vicons/ionicons5';
-import { getHotTags } from '@/apis/post';
+import { getTags } from '@/apis/post';
 const keyword = ref('');
 const router = useRouter();
 
 const { data, pending } = await useAsyncData(
-    'getHotTags',
-    () => getHotTags()
+    'getTags',
+    () => getTags('hot', 15),
 )
 const formatQuoteNum = (num: number) => {
     if (num >= 1000) {
