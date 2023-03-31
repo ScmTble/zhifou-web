@@ -52,7 +52,7 @@ const handleLogin = (e: Event) => {
           console.log(res)
           const token = res?.token || '';
           // 写入用户信息
-          localStorage.setItem('PAOPAO_TOKEN', token);
+          localStorage.setItem('ZHIFOU_TOKEN', token);
           return userInfo(token);
         })
         .then((res) => {

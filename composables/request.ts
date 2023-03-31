@@ -8,8 +8,8 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         // 鉴权Header
-        if (localStorage.getItem('PAOPAO_TOKEN')) {
-            (config.headers as any)['Authorization'] = 'Bearer ' + localStorage.getItem('PAOPAO_TOKEN');
+        if (localStorage.getItem('ZHIFOU_TOKEN')) {
+            (config.headers as any)['Authorization'] = 'Bearer ' + localStorage.getItem('ZHIFOU_TOKEN');
         }
 
         return config;

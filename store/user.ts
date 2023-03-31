@@ -41,7 +41,7 @@ const useUser = defineStore('user', {
             this.status = data.status
         },
         userLogout() {
-            localStorage.removeItem('PAOPAO_TOKEN')
+            localStorage.removeItem('ZHIFOU_TOKEN')
             this.$reset()
         },
     },

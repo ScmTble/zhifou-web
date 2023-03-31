@@ -1,5 +1,5 @@
 <template>
-  <div class="post-item" @click="goPostDetail(props.post.id)">
+  <div class="post-item">
     <n-thing content-indented>
       <!-- 头像 -->
       <template #avatar>
@@ -91,16 +91,6 @@ const state = computed(() => {
     color: '#f7f9f9'
   }
 })
-
-const goPostDetail = (id: number) => {
-  console.log(id)
-  // router.push({
-  //   name: 'post',
-  //   query: {
-  //     id,
-  //   },
-  // });
-};
 
 
 const doClickText = (e: MouseEvent, id: number) => {

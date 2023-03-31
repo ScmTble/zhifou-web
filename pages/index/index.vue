@@ -32,7 +32,7 @@ const list = ref<any[]>([
       "avatar": "https://cdn.paopao.info/public/avatar/1f/28/84/e0/489b-40e4-948b-ac3c2f931546.jpeg",
       "is_admin": false
     },
-    "contents": 'wadawd\nawdawd\nfawfafw<span class=\"hash-link\">#awdaw</span> wadawd<span class=\"hash-link\">@awdawdawd</span>',
+    "contents": 'wadawd\nawdawd\nfawfafw wadawd<span class=\"hash-link\">@awdawdawd</span>',
     "imgs": [
       "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
       "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",

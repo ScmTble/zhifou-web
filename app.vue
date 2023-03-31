@@ -2,6 +2,7 @@
   <n-config-provider :theme="theme" inline-theme-disabled>
     <n-message-provider>
       <NuxtLayout>
+        <NuxtLoadingIndicator />
         <NuxtPage></NuxtPage>
       </NuxtLayout>
       <n-global-style />

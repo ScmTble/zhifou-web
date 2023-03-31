@@ -1,7 +1,7 @@
 <template>
   <div>
-    <n-popselect trigger="click" :value="file.tags" multiple :options="cache.tagsOptions"
-      :on-update:value="handleTagUpdate" size="medium" scrollable>
+    <n-popselect trigger="click" :value="file.tags" multiple :options="data as any" :on-update:value="handleTagUpdate"
+      size="medium" scrollable>
       <n-button quaternary circle type="primary">
         <n-icon size="16">
           <pricetags-outline />
@@ -15,11 +15,15 @@
 import {
   PricetagsOutline,
 } from '@vicons/ionicons5';
-import useCache from '@/store/cache';
 import useFile from '@/store/file';
+import { getAllTags } from '@/apis/post';
 
-const cache = useCache();
 const file = useFile();
+
+const { data } = await useLazyAsyncData(
+  'getAllTags',
+  () => getAllTags(),
+)
 
 const handleTagUpdate = (val: any) => {
   file.updateTags(val)

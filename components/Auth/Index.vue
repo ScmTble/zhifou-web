@@ -24,7 +24,7 @@ import { userInfo } from "@/apis/auth";
 const user = useUser();
 
 onMounted(() => {
-  const token = localStorage.getItem('PAOPAO_TOKEN') || '';
+  const token = localStorage.getItem('ZHIFOU_TOKEN') || '';
   if (token) {
     userInfo(token)
       .then((res) => {
