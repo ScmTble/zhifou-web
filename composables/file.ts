@@ -88,3 +88,38 @@ export const failUpload = () => {
 export const removeUpload = () => {
 
 }
+
+
+// 解析各种附件
+export const parseFileQueue = (queue: any[]) => {
+  let imgs: any[] = []
+  let attachments: any[] = []
+  let videos: any[] = []
+
+  queue.forEach((item: any) => {
+    if (['image/jpeg'].includes(item.type)) {
+      imgs.push({
+        label: item.name,
+        url: item.url,
+      })
+    }
+    if (['application/zip'].includes(item.type)) {
+      attachments.push({
+        label: item.name,
+        url: item.url,
+      })
+    }
+    if (['video/mp4'].includes(item.type)) {
+      videos.push({
+        label: item.name,
+        url: item.url,
+      })
+    }
+  })
+
+  return {
+    imgs,
+    attachments,
+    videos
+  }
+}

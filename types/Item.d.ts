@@ -129,31 +129,20 @@ declare module Item {
 
     /** 帖子 */
     interface PostProps {
-        id: number,
-        /** 发帖人UID */
-        user_id: number,
+        id: string,
         /** 发帖人用户数据 */
         user: UserInfo,
-        /** 附件价格（分） */
-        attachment_price: number,
-        /** 发帖时IP地址 */
-        ip?: string,
-        /** 发帖时城市地址 */
-        ip_loc: string,
-        /** 最新回复时间 */
-        latest_replied_on: number,
-        /** 创建时间 */
         created_on: number,
         /** 修改时间 */
-        modified_on?: number,
+        modified_time?: number,
         /** 删除时间 */
-        deleted_on?: number,
+        deleted_time?: number,
         /** 点赞数 */
-        upvote_count: number,
+        upvote_count?: number,
         /** 评论数 */
-        comment_count: number,
+        comment_count?: number,
         /** 收藏数 */
-        collection_count: number,
+        collection_count?: number,
         /** 内容列表 */
         contents: string,
         /** 标签列表 */

@@ -7,88 +7,59 @@
         <Compose @post-success="onPostSuccess" />
       </n-list-item>
 
-      <n-list-item v-for="post in list" :key="post.id">
+      <n-list-item class="dynamic-item" v-for="post in list" :key="post.id" @click="handleDynamicDetail(post.id)">
         <Dynamic :post="post" />
       </n-list-item>
-
     </n-list>
   </div>
 </template>
 
 <script setup lang="ts">
+import { getRecommend } from '@/apis/post';
+import useMain from '@/store/main';
+
 const title = ref("广场")
+const main = useMain()
+const router = useRouter();
+
 useHead({
   title: title.value
 })
-const list = ref<any[]>([
-  {
-    "id": 1080035128,
-    "user_id": 101709,
-    "user": {
-      "id": 101709,
-      "nickname": "北野",
-      "username": "alimy",
-      "status": 1,
-      "avatar": "https://cdn.paopao.info/public/avatar/1f/28/84/e0/489b-40e4-948b-ac3c2f931546.jpeg",
-      "is_admin": false
-    },
-    "contents": 'wadawd\nawdawd\nfawfafw wadawd<span class=\"hash-link\">@awdawdawd</span>',
-    "imgs": [
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg"
-    ],
-    "urls": ["https://www.baidu.com"],
-    "users": [],
-    "videos": [],
-    "attachments": [
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip"
-    ],
-    "tags": [],
-    "created_time": "awdawd",
-    "collection_count": 100,
-    "comment_count": 90,
-    "upvote_count": 10,
-  },
-  {
-    "id": 1080035128,
-    "user_id": 101709,
-    "user": {
-      "id": 101709,
-      "nickname": "北野",
-      "username": "alimy",
-      "status": 1,
-      "avatar": "https://cdn.paopao.info/public/avatar/1f/28/84/e0/489b-40e4-948b-ac3c2f931546.jpeg",
-      "is_admin": false
-    },
-    "contents": 'wadawd\nawdawd\nfawfafw<span class=\"hash-link\">#awdaw</span> wadawd<span class=\"hash-link\">@awdawdawd</span>',
-    "imgs": [
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e92g598dhdkln1nr0.jpeg"
-    ],
-    "urls": ["https://www.baidu.com"],
-    "users": [],
-    "videos": [],
-    "attachments": [
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip",
-      "https://zhifoust.oss-cn-guangzhou.aliyuncs.com/cg5e95g598dhdkln1nrg.zip"
-    ],
-    "tags": [],
-    "created_time": "awdawd",
-    "collection_count": 100,
-    "comment_count": 90,
-    "upvote_count": 10,
-  }
-]);
+
+onMounted(() => {
+  getRecommend().then((res: any) => {
+    list.value = res.list ?? []
+  })
+})
+
+const list = ref<Post.PostInfo[]>([]);
 const onPostSuccess = (post: any) => {
-  list.value.push(post)
+  // list.value.push(post)
 };
+
+const handleDynamicDetail = (id: string) => {
+  router.push(`/post/${id}`)
+}
+
+const state = computed(() => {
+  if (main.theme === 'dark') {
+    return {
+      color: '#18181c'
+    }
+  }
+  return {
+    color: '#f7f9f9'
+  }
+})
+
 </script>
+
+
+<style lang="less" scoped>
+.dynamic-item {
+  :hover {
+    background: v-bind('state.color');
+    cursor: pointer;
+  }
+}
+</style>

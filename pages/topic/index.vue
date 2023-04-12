@@ -8,10 +8,10 @@
       </n-tabs>
       <n-spin :show="pending">
         <n-space>
-          <n-tag class="tag-item" type="success" round v-for="tag in data as any" :key="tag.id">
-            <router-link class="hash-link" to="/">
+          <n-tag class="tag-item" type="success" round v-for="tag in data" :key="tag.id">
+            <NuxtLink class="hash-link" :to="`/tag/${tag.id}`">
               #{{ tag.tag }}
-            </router-link>
+            </NuxtLink>
             <span class="tag-hot">({{ tag.quote_num }})</span>
             <template #avatar>
               <n-avatar :src="tag.avatar" />
@@ -32,7 +32,7 @@ useHead({
 })
 const tagType = ref<"hot" | "new">('hot');
 
-const { data, pending, refresh } = await useAsyncData(
+const { data, pending, refresh } = await useAsyncData<any>(
   'getTopics',
   () => getTags(tagType.value, 15),
 )

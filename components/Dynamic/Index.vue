@@ -3,25 +3,15 @@
     <n-thing content-indented>
       <!-- 头像 -->
       <template #avatar>
-        <n-avatar round :size="30" :src="props.post.user.avatar" />
+        <DynamicAvatar :url="props.post.user.avatar" />
       </template>
       <!-- 用户名 -->
       <template #header>
-        <span class="nickname-wrap">
-          <nuxt-link @click.stop class="username-link" :to="`/user/${props.post.user.username}`">
-            <n-button text tag="span">
-              {{ props.post.user.nickname }}
-            </n-button>
-          </nuxt-link>
-        </span>
-        <span class="username-wrap"> @{{ props.post.user.username }} </span>
+        <DynamicUserName :username="props.post.user.username" :nickname="props.post.user.nickname" />
       </template>
       <!-- 发布时间、ip -->
       <template #header-extra>
-        <span class="timestamp">
-          <!-- {{ props.post.ip_loc ? props.post.ip_loc + ' · ' : props.post.ip_loc }} -->
-          {{ formatRelativeTime(props.post.created_time) }}
-        </span>
+        <DynamicTime :created_time="props.post.created_time" />
       </template>
 
       <!-- 内容 -->
@@ -31,69 +21,29 @@
       </template>
 
       <!-- 链接 -->
-      <DynamicLink :links="post.urls" />
+      <DynamicLink v-if="props.post.urls" :links="props.post.urls" />
       <!-- 附件 -->
-      <DynamicAttachment :attachments="post.attachments" />
+      <DynamicAttachment v-if="props.post.attachments" :attachments="props.post.attachments" />
       <!-- 图片 -->
-      <DynamicImage :imgs="post.imgs" />
+      <DynamicImage v-if="props.post.imgs" :imgs="props.post.imgs" />
       <!-- 视频 -->
-      <DynamicVideo :videos="post.videos" />
-
+      <DynamicVideo v-if="props.post.videos" :videos="props.post.videos" />
 
       <!-- 点赞数、评论数、收藏数 -->
       <template #action>
-        <n-space justify="space-between">
-          <div class="opt-item">
-            <n-icon size="18" class="opt-item-icon">
-              <heart-outline />
-            </n-icon>
-            {{ props.post.upvote_count }}
-          </div>
-          <div class="opt-item">
-            <n-icon size="18" class="opt-item-icon">
-              <chatbox-outline />
-            </n-icon>
-            {{ props.post.comment_count }}
-          </div>
-          <div class="opt-item">
-            <n-icon size="18" class="opt-item-icon">
-              <bookmark-outline />
-            </n-icon>
-            {{ props.post.collection_count }}
-          </div>
-        </n-space>
+        <DynamicAction :upvote_count="props.post.upvote_count" :comment_count="props.post.comment_count"
+          :collection_count="props.post.collection_count" />
       </template>
     </n-thing>
   </div>
 </template>
   
 <script setup lang="ts">
-import useMain from '@/store/main';
-import {
-  HeartOutline,
-  BookmarkOutline,
-  ChatboxOutline,
-} from '@vicons/ionicons5';
-
-const router = useRouter();
-const main = useMain();
 const props = withDefaults(defineProps<{
-  post: Item.PostItemProps,
+  post: Post.PostInfo,
 }>(), {});
 
-const state = computed(() => {
-  if (main.theme === 'dark') {
-    return {
-      color: '#18181c'
-    }
-  }
-  return {
-    color: '#f7f9f9'
-  }
-})
-
-
-const doClickText = (e: MouseEvent, id: number) => {
+const doClickText = (e: MouseEvent, id: string) => {
 
 };
 </script>
@@ -104,54 +54,12 @@ const doClickText = (e: MouseEvent, id: number) => {
   padding: 16px;
   box-sizing: border-box;
 
-  .nickname-wrap {
-    font-size: 14px;
-  }
-
-  .username-wrap {
-    font-size: 14px;
-    opacity: 0.75;
-  }
-
-  .top-tag {
-    transform: scale(0.75);
-  }
-
-  .timestamp {
-    opacity: 0.75;
-    font-size: 12px;
-  }
-
   .post-text {
     font-size: medium;
     text-align: justify;
     overflow: hidden;
     white-space: pre-wrap;
     word-break: break-all;
-  }
-
-  .opt-item {
-    display: flex;
-    align-items: center;
-    opacity: 0.7;
-
-    .opt-item-icon {
-      margin-right: 10px;
-    }
-  }
-
-  &:hover {
-    background: v-bind('state.color');
-    cursor: pointer;
-  }
-
-  .n-thing-avatar {
-    margin-top: 0;
-  }
-
-  .n-thing-header {
-    line-height: 16px;
-    margin-bottom: 8px !important;
   }
 }
 </style>

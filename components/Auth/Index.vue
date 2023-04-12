@@ -21,23 +21,25 @@
 <script setup lang="ts">
 import useUser from "@/store/user";
 import { userInfo } from "@/apis/auth";
+import { useMessage } from "naive-ui";
+
 const user = useUser();
+const message = useMessage();
 
 onMounted(() => {
-  const token = localStorage.getItem('ZHIFOU_TOKEN') || '';
-  if (token) {
-    userInfo(token)
+  if (localStorage.getItem('ZHIFOU_TOKEN')) {
+    userInfo()
       .then((res) => {
         user.updateUserinfo(res)
         user.hiddenAuth();
       })
       .catch((err) => {
         user.userLogout()
+        message.warning("请重新登录")
       });
-  } else {
-    user.userLogout()
   }
-});
+}
+);
 
 </script>
   

@@ -19,5 +19,14 @@ export default defineNuxtConfig({
       imageThumbnail: "?x-oss-process=image/resize,m_fill,w_300,h_300,limit_0/auto-orient,1/format,png",
       uploadGateway: "https://gin-oss.zeabur.app/upload"
     }
+  },
+  nitro: {
+    devProxy: {
+      "/v1": {
+        target: "http://127.0.0.1:8085/",
+        changeOrigin: true,
+        prependPath: true,
+      }
+    }
   }
 })

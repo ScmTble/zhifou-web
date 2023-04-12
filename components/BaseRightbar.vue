@@ -9,7 +9,7 @@
     </div>
     <n-card title="热门话题" embedded :bordered="false" size="small">
       <n-spin :show="pending">
-        <div class="hot-tag-item" v-for="tag in data as any" :key="tag.id">
+        <div class="hot-tag-item" v-for="tag in data" :key="tag.id">
           <NuxtLink class="hash-link" :to="`/tag/${tag.id}`">
             #{{ tag.tag }}
           </NuxtLink>
@@ -33,7 +33,7 @@ import { getTags } from '@/apis/post';
 const keyword = ref('');
 const router = useRouter();
 
-const { data, pending } = await useAsyncData(
+const { data, pending } = await useAsyncData<any>(
   'getTags',
   () => getTags('hot', 15),
 )

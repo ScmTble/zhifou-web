@@ -2,8 +2,6 @@
   <n-upload ref="uploadRef" abstract list-type="image" :multiple="true" :max="9" :action="uploadGateway"
     @before-upload="beforeUploadHandler" @finish="finishUpload" @error="failUpload" @remove="removeUpload"
     @update:file-list="file.updateFileQueue">
-
-
     <div class="submit-wrap">
       <div class="wrap-left">
         <ComposeUploadTrigger @update-uploda-type="updateHandler" @link-click="linksAddShow = !linksAddShow" />
@@ -39,12 +37,12 @@
 import { useMessage } from 'naive-ui';
 import { ref } from 'vue'
 import useFile from '@/store/file';
+import { createPost } from '@/apis/post';
 
 const file = useFile();
 const message = useMessage();
 const config = useRuntimeConfig();
 
-const link = ref<string>('');
 const submitting = ref(false);
 const uploadType = ref("public/image")
 const uploadGateway = config.public.uploadGateway
@@ -79,7 +77,22 @@ const updateHandler = (type: string) => {
 const submitPost = () => {
   if (file.contents.length === 0) {
     message.warning('输入内容')
+    return
   }
+  let { imgs, attachments, videos } = parseFileQueue(file.queue)
+  createPost({
+    imgs,
+    urls: file.urls,
+    videos,
+    tags: file.tags,
+    contents: file.contents,
+    attachments,
+    users: []
+  }).then(res => {
+    message.success('发布成功')
+  }).catch(err => {
+    message.error('发布失败')
+  })
 }
 
 </script>

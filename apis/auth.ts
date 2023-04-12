@@ -1,3 +1,4 @@
+const base_url = import.meta.env.VITE_NUXT_BASE_URL as string
 /** 用户登录（完成） */
 export const userLogin = (params: NetParams.AuthUserLogin): Promise<NetReq.AuthUserLogin> => {
     return request({
@@ -22,7 +23,7 @@ export const userInfo = (token: NetParams.AuthUserInfo = ""): Promise<NetReq.Aut
         method: 'get',
         url: '/v1/user/info',
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token
         },
     });
 };

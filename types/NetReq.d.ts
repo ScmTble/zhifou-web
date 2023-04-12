@@ -19,9 +19,7 @@ declare module NetReq {
 
     interface UserGetCollections {
         /** 帖子列表 */
-        list: Item.PostProps[],
-        /** 页码信息 */
-        pager: Item.PagerProps
+        list: Post.PostInfo[],
     }
 
     type UserGetSuggestUsers = string[]

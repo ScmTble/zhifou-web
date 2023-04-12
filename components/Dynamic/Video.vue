@@ -14,7 +14,7 @@
 
 const props = withDefaults(
     defineProps<{
-        videos: string[];
+        videos: Video.VideoInfo[];
         full?: boolean;
     }>(),
     {

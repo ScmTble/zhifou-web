@@ -9,9 +9,8 @@ service.interceptors.request.use(
     config => {
         // 鉴权Header
         if (localStorage.getItem('ZHIFOU_TOKEN')) {
-            (config.headers as any)['Authorization'] = 'Bearer ' + localStorage.getItem('ZHIFOU_TOKEN');
+            (config.headers as any)['Authorization'] = localStorage.getItem('ZHIFOU_TOKEN');
         }
-
         return config;
     },
     error => {

@@ -4,7 +4,8 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="2">
         <template v-for="img in props.imgs" :key="img.id">
           <n-gi>
-            <n-image @click.stop class="post-img x1" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x1" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -14,7 +15,8 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="3">
         <template v-for="img in props.imgs" :key="img.id">
           <n-gi>
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -24,7 +26,8 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="4">
         <template v-for="img in props.imgs" :key="img.id">
           <n-gi>
-            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -34,14 +37,16 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="3">
         <template v-for="(img, idx) in props.imgs" :key="img.id">
           <n-gi v-if="idx < 3">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
       <n-grid :x-gap="4" :y-gap="4" :cols="2" style="margin-top: 4px">
         <template v-for="(img, idx) in props.imgs" :key="img.id">
           <n-gi v-if="idx >= 3">
-            <n-image @click.stop class="post-img x1" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x1" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -51,14 +56,16 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="3">
         <template v-for="(img, idx) in props.imgs" :key="img.id">
           <n-gi v-if="idx < 3">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
       <n-grid :x-gap="4" :y-gap="4" :cols="3" style="margin-top: 4px">
         <template v-for="(img, idx) in props.imgs" :key="img.id">
           <n-gi v-if="idx >= 3">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -68,14 +75,16 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="4">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx < 4">
-            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
       <n-grid :x-gap="4" :y-gap="4" :cols="3" style="margin-top: 4px">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx >= 4">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -85,14 +94,16 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="4">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx < 4">
-            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
       <n-grid :x-gap="4" :y-gap="4" :cols="4" style="margin-top: 4px">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx >= 4">
-            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x3" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -102,21 +113,24 @@
       <n-grid :x-gap="4" :y-gap="4" :cols="3">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx < 3">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
       <n-grid :x-gap="4" :y-gap="4" :cols="3" style="margin-top: 4px">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx >= 3 && idx < 6">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
       <n-grid :x-gap="4" :y-gap="4" :cols="3" style="margin-top: 4px">
         <template v-for="(img, idx) in props.imgs">
           <n-gi v-if="idx >= 6">
-            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img + thumbnail" :preview-src="img" />
+            <n-image @click.stop class="post-img x2" object-fit="cover" :src="img.url + thumbnail"
+              :preview-src="img.url" />
           </n-gi>
         </template>
       </n-grid>
@@ -129,7 +143,7 @@
 const config = useRuntimeConfig();
 const thumbnail = config.public.imageThumbnail;
 const props = withDefaults(defineProps<{
-  imgs: string[],
+  imgs: Img.ImgInfo[],
 }>(), {
   imgs: () => []
 });

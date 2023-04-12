@@ -49,7 +49,6 @@ const handleLogin = (e: Event) => {
         password: loginForm.password,
       })
         .then((res: any) => {
-          console.log(res)
           const token = res?.token || '';
           // 写入用户信息
           localStorage.setItem('ZHIFOU_TOKEN', token);

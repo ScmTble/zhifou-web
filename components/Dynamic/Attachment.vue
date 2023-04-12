@@ -1,13 +1,13 @@
 <template>
   <div class="attachment-wrap">
-    <div class="attach-item" v-for="attachment in props.attachments" :key="attachment">
+    <div class="attach-item" v-for="attachment in props.attachments" :key="attachment.url">
       <n-button type="primary" size="tiny" dashed>
         <template #icon>
           <n-icon>
             <cloud-download-outline />
           </n-icon>
         </template>
-        附件
+        附件 {{ attachment.label }}
       </n-button>
     </div>
   </div>
@@ -18,12 +18,10 @@ import { CloudDownloadOutline } from '@vicons/ionicons5';
 
 const props = withDefaults(
   defineProps<{
-    attachments: string[];
-    price?: number;
+    attachments: Attachment.AttachmentInfo[];
   }>(),
   {
     attachments: () => [],
-    price: 0,
   }
 );
 </script>
