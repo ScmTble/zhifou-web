@@ -16,9 +16,4 @@ declare module User {
         /** 用户状态 */
         status?: 1 | 2
     }
-
-    interface AtUser {
-        nickname: string
-        username: string
-    }
 }

@@ -1,26 +1,17 @@
 import { defineStore } from 'pinia'
-import type { UploadFileInfo } from 'naive-ui';
 
 const useFile = defineStore('file', {
     state: () => {
-        const queue = reactive<UploadFileInfo[]>([]);
-        // const imgs = ref<string[]>([]);
-        // const videos = ref<string[]>([]);
-        // const attachments = ref<string[]>([]);
-        const urls = ref<string[]>([]);
+        const attachments = reactive<Attachment.AttachmentInfo[]>([]);
         const contents = ref<string>('');
         const tags = ref<string[]>([]);
         return {
-            queue,
-            urls,
+            attachments,
             contents,
             tags
         }
     },
     actions: {
-        updateFileQueue(list: UploadFileInfo[]) {
-            this.queue = list
-        },
         updateContents(contents: string) {
             if (contents.length > 200) {
                 return;
@@ -33,6 +24,12 @@ const useFile = defineStore('file', {
                 return
             }
             this.tags = tags
+        },
+        addAttachment(attachment: Attachment.AttachmentInfo) {
+            this.attachments.push(attachment)
+        },
+        removeAttachment(attachment: Attachment.AttachmentInfo) {
+            this.attachments = this.attachments.filter(item => item.url !== attachment.url)
         }
     },
 })

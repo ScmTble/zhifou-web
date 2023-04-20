@@ -11,6 +11,7 @@ import {
   HeartOutline,
   LeafOutline,
   SettingsOutline,
+  InfiniteSharp,
 } from '@vicons/ionicons5';
 import useMain from '@/store/main';
 import useUser from '@/store/user';
@@ -39,7 +40,7 @@ const pathOptions = computed(() => {
     {
       label: '话题',
       key: '/topic',
-      icon: () => h(LeafOutline),
+      icon: () => h(InfiniteSharp),
       href: '/topic',
     }]
   if (user.isLogin) {

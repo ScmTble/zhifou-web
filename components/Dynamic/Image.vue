@@ -143,7 +143,7 @@
 const config = useRuntimeConfig();
 const thumbnail = config.public.imageThumbnail;
 const props = withDefaults(defineProps<{
-  imgs: Img.ImgInfo[],
+  imgs: Attachment.AttachmentInfo[],
 }>(), {
   imgs: () => []
 });

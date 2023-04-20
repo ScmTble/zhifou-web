@@ -7,8 +7,8 @@
         <Compose @post-success="onPostSuccess" />
       </n-list-item>
 
-      <n-list-item class="dynamic-item" v-for="post in list" :key="post.id" @click="handleDynamicDetail(post.id)">
-        <Dynamic :post="post" />
+      <n-list-item class="dynamic-item" v-for="post in list" :key="post.id">
+        <Dynamic :post="post" :action="false" />
       </n-list-item>
     </n-list>
   </div>
@@ -19,12 +19,12 @@ import { getRecommend } from '@/apis/post';
 import useMain from '@/store/main';
 
 const title = ref("广场")
-const main = useMain()
-const router = useRouter();
-
 useHead({
   title: title.value
 })
+const main = useMain()
+const list = ref<Post.PostInfo[]>([]);
+
 
 onMounted(() => {
   getRecommend().then((res: any) => {
@@ -32,14 +32,9 @@ onMounted(() => {
   })
 })
 
-const list = ref<Post.PostInfo[]>([]);
 const onPostSuccess = (post: any) => {
   // list.value.push(post)
 };
-
-const handleDynamicDetail = (id: string) => {
-  router.push(`/post/${id}`)
-}
 
 const state = computed(() => {
   if (main.theme === 'dark') {

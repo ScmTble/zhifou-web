@@ -1,37 +1,37 @@
 <template>
-    <div class="link-wrap">
-        <div class="link-item" v-for="link in props.links">
-            <n-icon class="hash-link"><link-outline /></n-icon>
-            <a :href="link" class="hash-link" target="_blank" @click.stop>
-                <span class="link-txt">{{ link }}</span>
-            </a>
-        </div>
+  <div class="link-wrap">
+    <div class="link-item" v-for="link in props.links">
+      <n-icon class="hash-link"><link-outline /></n-icon>
+      <a :href="link.url" class="hash-link" target="_blank" @click.stop>
+        <span class="link-txt">{{ link.label }}</span>
+      </a>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { LinkOutline } from '@vicons/ionicons5';
 const props = withDefaults(defineProps<{
-    links: string[]
+  links: Attachment.AttachmentInfo[]
 }>(), {
-    links: () => []
+  links: () => []
 });
 </script>
 
 <style lang="less" scoped>
 .link-wrap {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 
-    .link-item {
-        display: flex;
-        align-items: center;
+  .link-item {
+    display: flex;
+    align-items: center;
 
-        .hash-link {
-            .link-txt {
-                margin-left: 4px;
-                word-break: break-all;
-            }
-        }
+    .hash-link {
+      .link-txt {
+        margin-left: 4px;
+        word-break: break-all;
+      }
     }
+  }
 }
 </style>

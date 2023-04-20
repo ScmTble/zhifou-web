@@ -1,5 +1,6 @@
+import { format } from 'timeago.js';
 export const formatRelativeTime = (time: number) => {
-
+    return format(time * 1000, 'zh_CN');
 }
 
 export const isUrl = (str: string) => {

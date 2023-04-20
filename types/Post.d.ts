@@ -6,14 +6,6 @@ declare module Post {
         user: User.UserInfo,
         /** 内容列表 */
         contents: string,
-        /*图片列表 */
-        imgs: Img.ImgInfo[],
-        /** 链接列表 */
-        urls: string[],
-        /** @ 用户列表 */
-        users: User.AtUser[],
-        /** 视频列表 */
-        videos: Video.VideoInfo[],
         /** 标签列表 */
         tags: Tag.TagInfo[],
         /** 附件列表 */

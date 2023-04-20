@@ -160,28 +160,7 @@ declare module NetParams {
         contents: string,
         /** 标签列表 */
         tags: string[],
-        /** 艾特用户列表 */
-        users: {
-            nickname: string;
-            username: string;
-        }[],
-        // 图片
-        imgs: {
-            label: string;
-            url: string;
-        }[],
-        // urls
-        urls: string[],
-        // videos
-        videos: {
-            label: string;
-            url: string;
-        }[],
-        // 附件
-        attachments: {
-            label: string;
-            url: string;
-        }[],
+        attachments: Attachment.AttachmentInfo[],
     }
 
     interface PostDeletePost {
