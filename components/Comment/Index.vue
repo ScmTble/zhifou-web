@@ -9,7 +9,7 @@
     </div>
 
     <!-- 发布图标 -->
-    <CommentUpload :contents="comment" />
+    <CommentUpload :post_id="props.post_id" :contents="comment" @comment-success="comment = ''" />
   </div>
   <div class="compose-wrap" v-else>
     <LoginWrap />
@@ -25,13 +25,15 @@ const comment = ref<string>('');
 const handleComment = (str: string) => {
   comment.value = str;
 }
+
+const props = defineProps<{
+  post_id: number
+}>()
 </script>
       
 <style lang="less" scoped>
 .compose-wrap {
   width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
 
   .compose-line {
     display: flex;

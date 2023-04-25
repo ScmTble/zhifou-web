@@ -50,7 +50,7 @@ const handleLogout = () => {
     flex-direction: column;
 
     .nickname {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
       line-height: 16px;
       height: 16px;
@@ -71,7 +71,7 @@ const handleLogout = () => {
     }
 
     .username {
-      font-size: 14px;
+      font-size: 15px;
       line-height: 16px;
       height: 16px;
       width: 120px;

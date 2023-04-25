@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 
 const useFile = defineStore('file', {
     state: () => {
-        const attachments = reactive<Attachment.AttachmentInfo[]>([]);
-        const contents = ref<string>('');
-        const tags = ref<string[]>([]);
+        const attachments: Attachment.AttachmentInfo[] = []
+        const contents: string = '';
+        const tags: string[] = [];
         return {
             attachments,
             contents,

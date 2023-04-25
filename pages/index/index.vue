@@ -1,13 +1,17 @@
 <template>
   <div>
     <MainNav :title="title" />
-    <n-list class="main-content-wrap" bordered>
+    <n-list bordered>
       <n-list-item>
         <!-- 发布器 -->
         <Compose @post-success="onPostSuccess" />
       </n-list-item>
-
-      <n-list-item class="dynamic-item" v-for="post in list" :key="post.id">
+    </n-list>
+    <n-list hoverable clickable bordered>
+      <n-list-item v-for="post in cache.tmpDynamicList" :key="post.id">
+        <Dynamic :post="post" :action="false" />
+      </n-list-item>
+      <n-list-item v-for="post in list" :key="post.id">
         <Dynamic :post="post" :action="false" />
       </n-list-item>
     </n-list>
@@ -16,19 +20,23 @@
 
 <script setup lang="ts">
 import { getRecommend } from '@/apis/post';
-import useMain from '@/store/main';
-
+import useCache from '~/store/cache';
 const title = ref("广场")
 useHead({
   title: title.value
 })
-const main = useMain()
+const cache = useCache();
 const list = ref<Post.PostInfo[]>([]);
 
+const loading = ref(false);
 
 onMounted(() => {
+  loading.value = true
   getRecommend().then((res: any) => {
+    loading.value = false
     list.value = res.list ?? []
+  }).catch(() => {
+    loading.value = false
   })
 })
 
@@ -36,25 +44,7 @@ const onPostSuccess = (post: any) => {
   // list.value.push(post)
 };
 
-const state = computed(() => {
-  if (main.theme === 'dark') {
-    return {
-      color: '#18181c'
-    }
-  }
-  return {
-    color: '#f7f9f9'
-  }
-})
-
 </script>
 
 
-<style lang="less" scoped>
-.dynamic-item {
-  :hover {
-    background: v-bind('state.color');
-    cursor: pointer;
-  }
-}
-</style>
+<style lang="less" scoped></style>

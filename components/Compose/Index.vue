@@ -4,7 +4,7 @@
     <!-- 上传图标组件 -->
     <ComposeUpload />
 
-    <FilePreview :attachments="file.attachments" />
+    <FilePreview v-show="file.attachments.length > 0" :attachments="file.attachments" />
 
   </div>
   <div class="compose-wrap" v-else>
@@ -17,12 +17,12 @@ import useUser from '@/store/user';
 import useFile from '@/store/file';
 const user = useUser();
 const file = useFile();
+
 </script>
     
 <style lang="less" scoped>
 .compose-wrap {
   width: 100%;
-  padding: 16px;
   box-sizing: border-box;
 }
 </style>

@@ -17,7 +17,7 @@ export const getRecommend = () => {
   })
 }
 
-
+// 获取指定类型的Tag
 export const getTags = (type: string, num: number) => {
   return new Promise((resolve, reject) => {
     useFetch(base_url + `/v1/tags?type=${type}&num=${num}`).then(res => {

@@ -1,7 +1,7 @@
 declare module Post {
 
     interface PostInfo {
-        id: string,
+        id: number,
         /** 发帖人用户数据 */
         user: User.UserInfo,
         /** 内容列表 */
@@ -23,6 +23,6 @@ declare module Post {
         /** 收藏数 */
         collection_count: number,
         /** 是否删除：0为未删除，1为已删除 */
-        is_del?: 0 | 1
+        is_del: boolean
     }
 }

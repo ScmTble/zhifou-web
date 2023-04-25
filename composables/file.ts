@@ -91,35 +91,38 @@ export const removeUpload = () => {
 
 
 // 解析各种附件
-export const parseFileQueue = (queue: any[]) => {
-  let imgs: any[] = []
-  let attachments: any[] = []
-  let videos: any[] = []
+export const parseAttachments = (queue: Attachment.AttachmentInfo[]) => {
+  let imgs: Attachment.AttachmentInfo[] = []
+  let attachments: Attachment.AttachmentInfo[] = []
+  let videos: Attachment.AttachmentInfo[] = []
+  let links: Attachment.AttachmentInfo[] = []
 
-  queue.forEach((item: any) => {
-    if (['image/jpeg'].includes(item.type)) {
-      imgs.push({
-        label: item.name,
-        url: item.url,
-      })
-    }
-    if (['application/zip'].includes(item.type)) {
-      attachments.push({
-        label: item.name,
-        url: item.url,
-      })
-    }
-    if (['video/mp4'].includes(item.type)) {
-      videos.push({
-        label: item.name,
-        url: item.url,
-      })
-    }
-  })
+  if (queue) {
+    queue.forEach((attachment: Attachment.AttachmentInfo) => {
+      switch (attachment.type) {
+        case 'img':
+          imgs.push(attachment)
+          break
+        case 'link':
+          links.push(attachment)
+          break
+        case 'video':
+          videos.push(attachment)
+          break
+        case 'attachment':
+          attachments.push(attachment)
+          break
+      }
+    })
+  }
+
+
 
   return {
     imgs,
     attachments,
-    videos
+    videos,
+    links
   }
 }
+

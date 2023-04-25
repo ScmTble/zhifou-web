@@ -4,17 +4,23 @@
       <div class="nav-left">
         <n-button class="back-btn" v-if="back" @click="goBack" quaternary circle size="small">
           <template #icon>
-            <n-icon><chevron-left-round /></n-icon>
+            <n-icon>
+              <ChevronLeftRound />
+            </n-icon>
           </template>
         </n-button>
         <span>{{ props.title }}</span>
       </div>
       <n-switch :value="switchVal" @update:value="switchTheme" size="small" class="theme-switch-wrap">
         <template #checked-icon>
-          <n-icon :component="LightModeOutlined" />
+          <n-icon>
+            <LightModeOutlined />
+          </n-icon>
         </template>
         <template #unchecked-icon>
-          <n-icon :component="DarkModeOutlined" />
+          <n-icon>
+            <DarkModeOutlined />
+          </n-icon>
         </template>
       </n-switch>
     </div>
@@ -22,8 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import useMain from '@/store/main';
 import { LightModeOutlined, DarkModeOutlined, ChevronLeftRound } from '@vicons/material';
+import useMain from '@/store/main';
 
 const main = useMain();
 const router = useRouter();
@@ -65,7 +71,6 @@ const goBack = () => {
   width: 100%;
   top: 0;
   position: sticky;
-
 
   .nav-main {
     display: flex;

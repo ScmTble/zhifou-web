@@ -7,7 +7,7 @@
         <n-tab-pane name="new" tab="最新" />
       </n-tabs>
       <n-spin :show="pending">
-        <n-space>
+        <n-space v-if="data">
           <n-tag class="tag-item" type="success" round v-for="tag in data" :key="tag.id">
             <NuxtLink class="hash-link" :to="`/tag/${tag.id}`">
               #{{ tag.tag }}
@@ -18,6 +18,10 @@
             </template>
           </n-tag>
         </n-space>
+        <div v-else class="tag-empty">
+          <n-empty description="暂无数据">
+          </n-empty>
+        </div>
       </n-spin>
     </n-list>
   </div>
@@ -48,6 +52,17 @@ const changeTab = (tab: "hot" | "new") => {
   padding: 20px;
 
   .tag-item {
+
+    .hash-link {
+      color: #18a058;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
     .tag-hot {
       margin-left: 12px;
       font-size: 12px;

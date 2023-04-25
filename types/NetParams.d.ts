@@ -170,10 +170,8 @@ declare module NetParams {
     interface PostCreateComment {
         /** 内容ID */
         post_id: number,
-        /** 帖子内容列表 */
-        contents: Partial<Item.CommentItemProps>[],
-        /** 艾特用户列表 */
-        users: string[]
+        /** 评论内容列表 */
+        content: string,
     }
 
     interface PostDeleteComment {

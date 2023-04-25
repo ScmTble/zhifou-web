@@ -1,8 +1,8 @@
 <template>
   <n-modal v-model:show="user.authModalShow" class="auth-card" preset="card" size="small" :mask-closable="false"
     :bordered="false" :style="{
-      width: '360px',
-    }">
+        width: '360px',
+      }">
     <div class="auth-wrap">
       <n-card :bordered="false">
         <n-tabs :default-value="user.authModelTab" size="large" justify-content="space-evenly">

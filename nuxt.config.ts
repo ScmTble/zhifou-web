@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
   app: {
@@ -10,23 +9,12 @@ export default defineNuxtConfig({
   modules: [
     '@huntersofbook/naive-ui-nuxt',
     '@pinia/nuxt',
-    '@nuxt/devtools'
   ],
   runtimeConfig: {
     public: {
       language: 'zh-CN',
-      // mode: process.env.NODE_ENV,
       imageThumbnail: "?x-oss-process=image/resize,m_fill,w_300,h_300,limit_0/auto-orient,1/format,png",
       uploadGateway: "https://gin-oss.zeabur.app/upload"
     }
   },
-  nitro: {
-    devProxy: {
-      "/v1": {
-        target: "http://127.0.0.1:8085/",
-        changeOrigin: true,
-        prependPath: true,
-      }
-    }
-  }
 })

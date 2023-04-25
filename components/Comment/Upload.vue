@@ -8,7 +8,7 @@
         </template>
         {{ props.contents.length }} / 100
       </n-tooltip>
-      <n-button :loading="submitting" @click="" type="primary" secondary round>
+      <n-button :loading="submitting" @click="handleComment" type="primary" secondary round>
         评论
       </n-button>
     </div>
@@ -16,15 +16,51 @@
 </template>
   
 <script lang="ts" setup>
+import { insertComment } from '@/apis/comment';
+import { useMessage } from 'naive-ui';
+import useCache from '~/store/cache';
+import useUser from '~/store/user';
+
+const emit = defineEmits(["commentSuccess"])
+const props = defineProps<{
+  contents: string,
+  post_id: number
+}>()
+
+const user = useUser();
+const cache = useCache();
 const submitting = ref(false);
-const props = withDefaults(
-  defineProps<{
-    contents: string;
-  }>(),
-  {
-    contents: '',
+const message = useMessage();
+
+const handleComment = () => {
+  if (props.contents.length == 0) {
+    message.warning('输入内容')
+    return
   }
-);
+  submitting.value = true
+  insertComment({
+    content: props.contents,
+    post_id: Number(props.post_id),
+  }).then((res: any) => {
+    // cache中添加
+    cache.addComment({
+      ...res,
+      user: {
+        id: user.id,
+        username: user.username,
+        nickname: user.nickname,
+        avatar: user.avatar,
+        is_admin: user.is_admin,
+      },
+    })
+    emit("commentSuccess")
+    submitting.value = false
+    message.success("评论成功")
+  }).catch(err => {
+    submitting.value = false
+    message.success("评论失败")
+  })
+}
 
 </script>
 <style lang="less" scoped>

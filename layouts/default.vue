@@ -6,9 +6,26 @@
         <slot />
       </div>
       <BaseRightbar />
-      <ClientOnly>
-        <Auth />
-      </ClientOnly>
     </div>
   </div>
 </template>
+
+<style lang="less" scoped>
+.app-container {
+  margin: 0;
+  padding: 0;
+
+  .main-wrap {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .content-wrap {
+      width: 100%;
+      max-width: var(--content-main);
+      position: relative;
+    }
+  }
+}
+</style>

@@ -20,20 +20,41 @@
 
 <script setup lang="ts">
 import useFile from '@/store/file';
+import useCache from '@/store/cache';
+import useUser from '@/store/user';
 import { useMessage } from 'naive-ui';
 import { createPost } from '@/apis/post';
 const file = useFile();
-const submitting = ref(false);
 const message = useMessage();
+const cache = useCache();
+const user = useUser();
+// 加载状态
+const submitting = ref(false);
 // 发布动态
 const handlePost = () => {
   if (file.contents.length === 0) {
     message.warning('输入内容')
+    return;
   }
   submitting.value = true;
-  createPost(file).then(() => {
+  let attachments = file.attachments ?? [];
+  let contents = file.contents;
+  let tags = file.tags ?? [];
+
+  createPost({ attachments, contents, tags }).then((res: any) => {
     message.success('发布成功')
     submitting.value = false;
+    cache.addPost({
+      ...res,
+      user: {
+        id: user.id,
+        username: user.username,
+        nickname: user.nickname,
+        avatar: user.avatar,
+        is_admin: user.is_admin,
+      }
+    })
+    file.$reset()
   }).catch(() => {
     message.error('发布失败');
     submitting.value = false;

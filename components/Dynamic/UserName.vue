@@ -3,7 +3,7 @@
     <span class="nickname-wrap">
       <nuxt-link @click.stop class="username-link" :to="`/user/${props.username}`">
         <n-button text tag="span">
-          {{ props.nickname }}
+          <span class="username">{{ props.nickname }}</span>
         </n-button>
       </nuxt-link>
     </span>
@@ -25,17 +25,7 @@ const props = withDefaults(defineProps<{
 }
 
 .username-wrap {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.75;
-}
-
-.username-link {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 </style>

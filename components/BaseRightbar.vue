@@ -8,17 +8,19 @@
       </n-input>
     </div>
     <n-card title="热门话题" embedded :bordered="false" size="small">
-      <n-spin :show="pending">
-        <div class="hot-tag-item" v-for="tag in data" :key="tag.id">
-          <NuxtLink class="hash-link" :to="`/tag/${tag.id}`">
-            #{{ tag.tag }}
-          </NuxtLink>
+      <div class="hot-tag-item" v-if="data" v-for="tag in data" :key="tag.id">
+        <NuxtLink class="hash-link" :to="`/tag/${tag.id}`">
+          #{{ tag.tag }}
+        </NuxtLink>
 
-          <div class="post-num">
-            {{ formatQuoteNum(tag.quote_num) }}
-          </div>
+        <div class="post-num">
+          {{ formatQuoteNum(tag.quote_num) }}
         </div>
-      </n-spin>
+      </div>
+      <div v-else>
+        <n-empty description="暂无数据">
+        </n-empty>
+      </div>
     </n-card>
     <n-card class="copyright-wrap" embedded :bordered="false" size="small">
       <div class="copyright">&copy; 2022 ScmTble</div>
@@ -33,7 +35,7 @@ import { getTags } from '@/apis/post';
 const keyword = ref('');
 const router = useRouter();
 
-const { data, pending } = await useAsyncData<any>(
+const { data } = await useAsyncData<any>(
   'getTags',
   () => getTags('hot', 15),
 )
@@ -75,6 +77,13 @@ const handleSearch = () => {
       white-space: nowrap;
       overflow: hidden;
       display: block;
+      color: #18a058;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
 
     .post-num {
@@ -92,12 +101,7 @@ const handleSearch = () => {
     margin-top: 10px;
 
     .copyright {
-      font-size: 12px;
       opacity: 0.75;
-    }
-
-    .hash-link {
-      font-size: 12px;
     }
   }
 }

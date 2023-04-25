@@ -8,7 +8,7 @@ const useUser = defineStore('user', {
         return {
             authModalShow,
             authModelTab,
-            is_admin: 0,
+            is_admin: false,
             id: 0,
             username: '',
             nickname: '',
