@@ -35,7 +35,8 @@
 
     <!-- 点赞数、评论数、收藏数 -->
     <template #action>
-      <DynamicAction :action="props.action" :upvote_count="props.post.upvote_count"
+      <DynamicAction :upvote_status="props.post.upvote_status" :collect_status="props.post.collect_status"
+        :post_id="props.post.id" :action="props.action" :upvote_count="props.post.upvote_count"
         :comment_count="props.post.comment_count" :collection_count="props.post.collection_count" />
     </template>
   </n-thing>

@@ -16,7 +16,6 @@
 </template>
   
 <script lang="ts" setup>
-import { insertComment } from '@/apis/comment';
 import { useMessage } from 'naive-ui';
 import useCache from '~/store/cache';
 import useUser from '~/store/user';
@@ -38,9 +37,12 @@ const handleComment = () => {
     return
   }
   submitting.value = true
-  insertComment({
-    content: props.contents,
-    post_id: Number(props.post_id),
+  $fetch('/api/comment/create', {
+    method: "POST",
+    body: {
+      content: props.contents,
+      post_id: Number(props.post_id),
+    }
   }).then((res: any) => {
     // cache中添加
     cache.addComment({

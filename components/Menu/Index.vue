@@ -28,7 +28,6 @@ watch(route, () => {
   main.updatePath(route.path)
 })
 
-
 const pathOptions = computed(() => {
   let menuList = [
     {
@@ -62,12 +61,12 @@ const pathOptions = computed(() => {
         icon: () => h(BookmarkOutline),
         href: '/collection',
       },
-      {
-        label: '点赞',
-        key: '/star',
-        icon: () => h(HeartOutline),
-        href: '/star',
-      },
+      // {
+      //   label: '点赞',
+      //   key: '/star',
+      //   icon: () => h(HeartOutline),
+      //   href: '/star',
+      // },
       {
         label: '设置',
         key: '/setting',

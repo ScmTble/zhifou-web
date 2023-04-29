@@ -3,7 +3,8 @@
     <MainNav :title="title" :back="true" />
     <n-list class="main-content-wrap" bordered>
       <n-list-item>
-        <Dynamic :post="dynamic" :action="true" />
+        <Dynamic v-if="dynamic" :post="dynamic" :action="true" />
+        <n-empty v-else description="没有数据" />
       </n-list-item>
       <n-list-item>
         <Comment :post_id="postId" />
@@ -11,16 +12,18 @@
       <n-list-item v-for="comment in cache.tmpCommentList">
         <CommentItem :comment="comment" />
       </n-list-item>
-      <n-list-item v-for="comment in comments">
+      <n-list-item v-if="comments" v-for="comment in comments">
         <CommentItem :comment="comment" />
+      </n-list-item>
+      <n-list-item v-if="showEmpty">
+        <n-empty description="没有评论">
+        </n-empty>
       </n-list-item>
     </n-list>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getDynamicDetail } from '@/apis/post';
-import { getAllComments } from '@/apis/comment';
 import useCache from '@/store/cache';
 const route = useRoute()
 const title = ref("动态详情")
@@ -31,18 +34,19 @@ useHead({
 
 const cache = useCache();
 const postId = Number(route.params.id)
+const showEmpty = computed(() => {
+  if (comments.value.length == 0 && cache.tmpCommentList.length == 0) {
+    return true
+  }
+  return false
+})
 
-const tmpCommentList = reactive<any>([]);
 
-const { data: dynamic } = await useAsyncData<any>(
-  'getDynamicDetail',
-  () => getDynamicDetail(route.params.id as string)
-)
+const headers = useRequestHeaders(['cookie'])
+const { data: dynamic } = await useFetch<any>(`/api/post/${postId}`, { headers })
 
-const { data: comments } = await useAsyncData<any>(
-  'getAllcomments',
-  () => getAllComments(postId)
-)
+
+const { data: comments } = await useFetch<any>(`/api/comment/${postId}`, { headers })
 
 </script>
 

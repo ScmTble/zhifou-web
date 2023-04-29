@@ -4,7 +4,7 @@
     <n-list bordered>
       <n-list-item>
         <!-- 发布器 -->
-        <Compose @post-success="onPostSuccess" />
+        <Compose />
       </n-list-item>
     </n-list>
     <n-list hoverable clickable bordered>
@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { getRecommend } from '@/apis/post';
 import useCache from '~/store/cache';
 const title = ref("广场")
 useHead({
@@ -32,17 +31,13 @@ const loading = ref(false);
 
 onMounted(() => {
   loading.value = true
-  getRecommend().then((res: any) => {
-    loading.value = false
-    list.value = res.list ?? []
+  $fetch('/api/post/recommend').then(res => {
+    list.value = res
   }).catch(() => {
     loading.value = false
   })
 })
 
-const onPostSuccess = (post: any) => {
-  // list.value.push(post)
-};
 
 </script>
 

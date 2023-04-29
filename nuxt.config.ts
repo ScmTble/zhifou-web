@@ -2,13 +2,14 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     head: {
-      titleTemplate: "%s - 知否"
+      titleTemplate: "%s | 知否"
     }
   },
   css: ['@/assets/css/main.less'],
   modules: [
     '@huntersofbook/naive-ui-nuxt',
     '@pinia/nuxt',
+    '@nuxt/devtools'
   ],
   runtimeConfig: {
     public: {

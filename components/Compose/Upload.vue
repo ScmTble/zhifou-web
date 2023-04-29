@@ -23,7 +23,6 @@ import useFile from '@/store/file';
 import useCache from '@/store/cache';
 import useUser from '@/store/user';
 import { useMessage } from 'naive-ui';
-import { createPost } from '@/apis/post';
 const file = useFile();
 const message = useMessage();
 const cache = useCache();
@@ -36,12 +35,18 @@ const handlePost = () => {
     message.warning('输入内容')
     return;
   }
-  submitting.value = true;
-  let attachments = file.attachments ?? [];
-  let contents = file.contents;
-  let tags = file.tags ?? [];
 
-  createPost({ attachments, contents, tags }).then((res: any) => {
+  submitting.value = true;
+  let attachments = file.attachments;
+  let contents = file.contents;
+  let tags = file.tags;
+
+  $fetch('/api/post/creat', {
+    method: 'POST',
+    body: {
+      attachments, contents, tags
+    }
+  }).then((res: any) => {
     message.success('发布成功')
     submitting.value = false;
     cache.addPost({

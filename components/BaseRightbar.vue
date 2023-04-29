@@ -31,14 +31,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Search } from '@vicons/ionicons5';
-import { getTags } from '@/apis/post';
 const keyword = ref('');
 const router = useRouter();
 
-const { data } = await useAsyncData<any>(
-  'getTags',
-  () => getTags('hot', 15),
-)
+const { data } = await useFetch<any>('/api/tag/query', {
+  query: {
+    'type': 'hot',
+    'num': 15
+  }
+})
 
 const formatQuoteNum = (num: number) => {
   if (num >= 1000) {

@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui';
 import { useMessage } from 'naive-ui';
-import { userLogin, userInfo } from '@/apis/auth';
 import useUser from '@/store/user';
 
 const message = useMessage();
@@ -38,33 +37,36 @@ const loginForm = reactive({
   password: '',
 });
 
+const cookie = useCookie("Authorization")
+
 const handleLogin = (e: Event) => {
   e.preventDefault();
   e.stopPropagation();
-  loginRef.value?.validate((errors) => {
+  loginRef.value?.validate(async (errors) => {
     if (!errors) {
       loading.value = true;
-      userLogin({
-        username: loginForm.username,
-        password: loginForm.password,
-      })
-        .then((res: any) => {
-          const token = res?.token || '';
-          // 写入用户信息
-          localStorage.setItem('ZHIFOU_TOKEN', token);
-          return userInfo(token);
-        })
-        .then((res) => {
-          message.success('登录成功');
-          loading.value = false;
-          user.updateUserinfo(res)
-          user.hiddenAuth()
-          loginForm.username = '';
-          loginForm.password = '';
-        })
-        .catch((err) => {
-          loading.value = false;
-        });
+      $fetch('/api/user/login', {
+        method: 'POST',
+        body: {
+          username: loginForm.username,
+          password: loginForm.password,
+        }
+      }).then((res: any) => {
+        loading.value = false;
+        let token = res?.token || '';
+        cookie.value = token;
+        return $fetch('/api/user/info')
+      }).then((res) => {
+        message.success('登录成功');
+        loading.value = false;
+        user.updateUserinfo(res)
+        user.hiddenAuth()
+        loginForm.username = '';
+        loginForm.password = '';
+      }).catch((err) => {
+        loading.value = false;
+        message.error('登录失败');
+      });
     }
   });
 };

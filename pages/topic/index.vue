@@ -28,19 +28,18 @@
 </template>
 
 <script setup lang="ts">
-import { getTags } from '@/apis/post';
-
 const title = ref("话题")
 useHead({
   title: title.value
 })
 const tagType = ref<"hot" | "new">('hot');
 
-const { data, pending, refresh } = await useAsyncData<any>(
-  'getTopics',
-  () => getTags(tagType.value, 15),
-)
-
+const { data, pending, refresh } = await useFetch<any>('/api/tag/query', {
+  query: {
+    'type': tagType,
+    'num': 15
+  }
+})
 const changeTab = (tab: "hot" | "new") => {
   tagType.value = tab;
   refresh(); // 刷新

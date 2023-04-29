@@ -22,6 +22,9 @@ const useUser = defineStore('user', {
             this.authModalShow = true;
             this.authModelTab = key;
         },
+        changeTab(key: string) {
+            this.authModelTab = key;
+        },
         hiddenAuth() {
             this.authModalShow = false;
         },
@@ -41,7 +44,8 @@ const useUser = defineStore('user', {
             this.status = data.status
         },
         userLogout() {
-            localStorage.removeItem('ZHIFOU_TOKEN')
+            const cookie = useCookie("Authorization");
+            cookie.value = null;
             this.$reset()
         },
     },

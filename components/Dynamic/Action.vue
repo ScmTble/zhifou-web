@@ -35,43 +35,68 @@ import {
   Bookmark,
   ChatboxOutline,
 } from '@vicons/ionicons5';
+import { useMessage } from 'naive-ui';
 
 const props = withDefaults(defineProps<{
   upvote_count: number,
   comment_count: number,
   collection_count: number,
-  action: boolean
+  action: boolean,
+  post_id: number,
+  collect_status: boolean,
+  upvote_status: boolean
 }>(), {
   action: false
 });
 
-const hasStarred = ref(false);
-const hasCollected = ref(false);
+const message = useMessage();
+const hasStarred = ref(unref(props.upvote_status));
+const hasCollected = ref(unref(props.collect_status));
 const upvote_count = ref(unref(props.upvote_count));
 const comment_count = ref(unref(props.comment_count));
 const collection_count = ref(unref(props.collection_count));
 
 const handleLike = () => {
   if (props.action) {
-    console.log('点赞');
-    hasStarred.value = !hasStarred.value;
-    if (hasStarred.value) {
-      upvote_count.value = upvote_count.value + 1;
-    } else {
-      upvote_count.value = upvote_count.value - 1;
-    }
+    $fetch('/api/like/click', {
+      method: 'POST',
+      body: {
+        post_id: props.post_id
+      }
+    }).then(() => {
+      hasStarred.value = !hasStarred.value;
+      if (hasStarred.value) {
+        upvote_count.value = upvote_count.value + 1;
+        message.success("点赞成功")
+      } else {
+        upvote_count.value = upvote_count.value - 1;
+        message.warning("取消点赞")
+      }
+    }).catch(err => {
+      message.error("操作失败")
+    })
   }
 }
 
 const handleCollect = () => {
   if (props.action) {
-    console.log('收藏');
-    hasCollected.value = !hasCollected.value;
-    if (hasCollected.value) {
-      collection_count.value = collection_count.value + 1;
-    } else {
-      collection_count.value = collection_count.value - 1;
-    }
+    $fetch('/api/collect/click', {
+      method: 'POST',
+      body: {
+        post_id: props.post_id
+      }
+    }).then(res => {
+      hasCollected.value = !hasCollected.value;
+      if (hasCollected.value) {
+        collection_count.value = collection_count.value + 1;
+        message.success("收藏成功")
+      } else {
+        collection_count.value = collection_count.value - 1;
+        message.warning("取消收藏")
+      }
+    }).catch(err => {
+      message.success("操作失败")
+    })
   }
 }
 </script>

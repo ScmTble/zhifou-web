@@ -22,7 +22,11 @@ declare module Post {
         comment_count: number,
         /** 收藏数 */
         collection_count: number,
+        // 收藏状态
+        collect_status: boolean,
+        // 点赞状态
+        upvote_status: boolean,
         /** 是否删除：0为未删除，1为已删除 */
-        is_del: boolean
+        is_del: boolean,
     }
 }
