@@ -41,12 +41,8 @@ const showEmpty = computed(() => {
   return false
 })
 
-
-const headers = useRequestHeaders(['cookie'])
-const { data: dynamic } = await useFetch<any>(`/api/post/${postId}`, { headers })
-
-
-const { data: comments } = await useFetch<any>(`/api/comment/${postId}`, { headers })
+const { data: dynamic } = await useFetch<any>(`/api/post/${postId}`)
+const { data: comments } = await useFetch<any>(`/api/comment/${postId}`)
 
 </script>
 

@@ -37,36 +37,34 @@ const loginForm = reactive({
   password: '',
 });
 
-const cookie = useCookie("Authorization")
-
 const handleLogin = (e: Event) => {
   e.preventDefault();
   e.stopPropagation();
   loginRef.value?.validate(async (errors) => {
     if (!errors) {
       loading.value = true;
-      $fetch('/api/user/login', {
-        method: 'POST',
-        body: {
-          username: loginForm.username,
-          password: loginForm.password,
-        }
-      }).then((res: any) => {
-        loading.value = false;
-        let token = res?.token || '';
-        cookie.value = token;
-        return $fetch('/api/user/info')
-      }).then((res) => {
-        message.success('登录成功');
-        loading.value = false;
-        user.updateUserinfo(res)
+      try {
+        // 登录
+        await useFetch('/api/user/login', {
+          method: 'POST',
+          body: {
+            username: loginForm.username,
+            password: loginForm.password,
+          },
+          server: false
+        })
         user.hiddenAuth()
         loginForm.username = '';
         loginForm.password = '';
-      }).catch((err) => {
-        loading.value = false;
+        // 获取用户信息
+        const { data: res } = await useFetch('/api/user/info', { server: false })
+        user.updateUserinfo(unref(res))
+        message.success("登录成功")
+      } catch (err) {
         message.error('登录失败');
-      });
+      } finally {
+        loading.value = false;
+      }
     }
   });
 };

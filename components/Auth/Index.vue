@@ -28,14 +28,16 @@ const message = useMessage();
 const cookie = useCookie("Authorization")
 // 打开时验证Token
 onMounted(() => {
-  $fetch('/api/user/info').then(res => {
-    user.updateUserinfo(res)
-  }).catch((err) => {
-    user.userLogout()
-    cookie.value = null
-    message.warning("请重新登录")
-    user.triggerAuth('signin')
-  });
+  if (cookie.value) {
+    $fetch('/api/user/info').then(res => {
+      user.updateUserinfo(res)
+    }).catch(() => {
+      user.userLogout()
+      cookie.value = null
+      message.warning("请重新登录")
+      user.triggerAuth('signin')
+    });
+  }
 }
 );
 
