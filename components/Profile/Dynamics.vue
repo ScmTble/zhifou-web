@@ -1,34 +1,31 @@
 <template>
-  <div>
-    <MainNav :title="title" :back="true" />
-
-    <n-list hoverable clickable bordered class="dynamic-list">
-      <n-list-item v-if="dynamics" v-for="post in dynamics" :key="post.id">
-        <Dynamic :post="post" :action="false" />
+  <div class="profile-dynamic-list">
+    <n-list-item v-if="dynamics" v-for="post in dynamics" :key="post.id">
+      <Dynamic :post="post" :action="false" />
+    </n-list-item>
+    <n-list-item v-else>
+      <n-empty description="暂无数据">
+      </n-empty>
+    </n-list-item>
+    <n-spin :show="loading">
+      <n-list-item class="bottom" @click="handleRefresh">
+        <n-button text type="success">加载动态</n-button>
       </n-list-item>
-      <n-list-item v-else>
-        <n-empty description="暂无数据">
-        </n-empty>
-      </n-list-item>
-      <n-spin :show="loading">
-        <n-list-item class="bottom" @click="handleRefresh">
-          <n-button text type="success">加载动态</n-button>
-        </n-list-item>
-      </n-spin>
-    </n-list>
+    </n-spin>
   </div>
 </template>
 
+
 <script setup lang="ts">
 import { useMessage } from 'naive-ui';
-const route = useRoute();
+import useUser from '@/store/user';
+
+const userStore = useUser();
 const message = useMessage();
 
-const tag_id = Number(route.params.id)
 const last_id = ref<string>("9223372036854775807")
+const loading = ref(false);
 const dynamics = ref<Post.PostInfo[]>([])
-const loading = ref<boolean>(false);
-const { data: tag } = await useFetch<any>(`/api/tag/${tag_id}`)
 
 // 获取新的动态
 const handleRefresh = () => {
@@ -36,9 +33,9 @@ const handleRefresh = () => {
     return
   }
   loading.value = true;
-  $fetch('/api/post/query_tag', {
+  $fetch('/api/post/query_user', {
     query: {
-      tag_id: tag_id,
+      user_id: userStore.id,
       last_id: last_id.value,
     }
   }).then((res: any) => {
@@ -57,17 +54,11 @@ const handleRefresh = () => {
   })
 }
 
-const title = "#" + tag.value.tag
-
-useHead({
-  title: title
-})
-
 onMounted(() => {
   loading.value = true;
-  $fetch('/api/post/query_tag', {
+  $fetch('/api/post/query_user', {
     query: {
-      tag_id: tag_id,
+      user_id: userStore.id,
       last_id: last_id.value,
     }
   }).then((res: any) => {
@@ -88,12 +79,9 @@ onMounted(() => {
 
 </script>
 
+
 <style lang="less" scoped>
 .bottom {
   text-align: center;
-}
-
-.dynamic-list {
-  margin-bottom: 30px;
 }
 </style>

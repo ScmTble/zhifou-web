@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const postId = event.context?.params?.id ?? 0
 
     const data: any = await $fetch(`/post/${postId}`, {
-        baseURL: "http://127.0.0.1:8000/v1",
+        baseURL: useRuntimeConfig().apiBase,
         headers: cookie
     })
 

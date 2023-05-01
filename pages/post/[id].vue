@@ -33,7 +33,7 @@ useHead({
 })
 
 const cache = useCache();
-const postId = Number(route.params.id)
+const postId = String(route.params.id)
 const showEmpty = computed(() => {
   if (comments.value.length == 0 && cache.tmpCommentList.length == 0) {
     return true

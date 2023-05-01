@@ -1,7 +1,8 @@
 declare module Post {
 
     interface PostInfo {
-        id: number,
+        /** 动态Id */
+        id: string,
         /** 发帖人用户数据 */
         user: User.UserInfo,
         /** 内容列表 */

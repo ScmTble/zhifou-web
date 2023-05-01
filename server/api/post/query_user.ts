@@ -1,13 +1,14 @@
-// 获取推荐动态（Token）
+// 根据User获取动态（Token）
 export default defineEventHandler(async (event) => {
-    const query = getQuery(event)
     const cookie = parseCookies(event)
-
-    const resp: any = await $fetch('/posts', {
+    const query = getQuery(event)
+    const resp: any = await $fetch('/query_user', {
         baseURL: useRuntimeConfig().apiBase,
         headers: cookie,
         query: {
-            offset: query.offset
+            user_id: query.user_id,
+            last_id: query.last_id,
+            page_num: useRuntimeConfig().public.pageNum
         }
     })
 

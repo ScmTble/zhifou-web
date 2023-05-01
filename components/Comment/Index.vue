@@ -27,7 +27,7 @@ const handleComment = (str: string) => {
 }
 
 const props = defineProps<{
-  post_id: number
+  post_id: string
 }>()
 </script>
       

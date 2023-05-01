@@ -16,5 +16,4 @@ import useMain from '@/store/main';
 
 const main = useMain();
 const theme = computed(() => (main.theme === 'dark' ? darkTheme : null));
-
 </script>

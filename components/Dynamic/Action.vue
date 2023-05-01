@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<{
   comment_count: number,
   collection_count: number,
   action: boolean,
-  post_id: number,
+  post_id: string,
   collect_status: boolean,
   upvote_status: boolean
 }>(), {

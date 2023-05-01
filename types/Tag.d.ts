@@ -4,6 +4,6 @@ declare module Tag {
         /** 展示名称 */
         label: string,
         /** TagId */
-        value: number,
+        value: string,
     }
 }

@@ -15,7 +15,9 @@ export default defineNuxtConfig({
     public: {
       language: 'zh-CN',
       imageThumbnail: "?x-oss-process=image/resize,m_fill,w_300,h_300,limit_0/auto-orient,1/format,png",
-      uploadGateway: "https://gin-oss.zeabur.app/upload"
-    }
+      uploadGateway: "https://gin-oss.zeabur.app/upload",
+      pageNum: 4,
+    },
+    apiBase: 'https://zhifou-app.zeabur.app/v1'
   },
 })

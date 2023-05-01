@@ -2,14 +2,14 @@ declare module Comment {
 
     interface CommentInfo {
         /** 评论Id */
-        id: number,
+        id: string,
         /** 动态Id */
-        post_id: number,
+        post_id: string,
         /** 用户 */
         user: User.UserInfo,
         /** 内容 */
         content: string,
-        /** 用户手机号 */
+
         created_time: number,
         updated_time?: number,
         deleted_time?: number,

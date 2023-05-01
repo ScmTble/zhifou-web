@@ -23,7 +23,7 @@ import useUser from '~/store/user';
 const emit = defineEmits(["commentSuccess"])
 const props = defineProps<{
   contents: string,
-  post_id: number
+  post_id: string
 }>()
 
 const user = useUser();
@@ -41,7 +41,7 @@ const handleComment = () => {
     method: "POST",
     body: {
       content: props.contents,
-      post_id: Number(props.post_id),
+      post_id: props.post_id,
     }
   }).then((res: any) => {
     // cache中添加

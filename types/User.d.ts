@@ -2,7 +2,7 @@ declare module User {
 
     interface UserInfo {
         /** 用户UID */
-        id: number,
+        id: string,
         /** 用户名 */
         username: string,
         /** 用户昵称 */

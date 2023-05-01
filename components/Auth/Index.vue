@@ -26,7 +26,8 @@ const user = useUser();
 const message = useMessage();
 
 const cookie = useCookie("Authorization")
-// 打开时验证Token
+
+// 打开时验证Cookie
 onMounted(() => {
   if (cookie.value) {
     $fetch('/api/user/info').then(res => {
