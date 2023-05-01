@@ -5,5 +5,5 @@ export default defineEventHandler(async (event) => {
         baseURL: "http://127.0.0.1:8000/v1",
     })
 
-    return data.data
+    return data?.data ?? null
 })

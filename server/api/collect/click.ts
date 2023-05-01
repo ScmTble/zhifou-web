@@ -8,5 +8,6 @@ export default defineEventHandler(async (event) => {
         body: body,
         headers: cookie
     })
-    return data.data
+
+    return data?.data ?? null
 })

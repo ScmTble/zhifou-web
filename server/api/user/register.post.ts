@@ -6,5 +6,6 @@ export default defineEventHandler(async (event) => {
         method: 'POST',
         body: body
     })
-    return data.data
+
+    return data?.data ?? null
 })

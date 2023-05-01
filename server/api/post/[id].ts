@@ -9,5 +9,5 @@ export default defineEventHandler(async (event) => {
         headers: cookie
     })
 
-    return data.data
+    return data?.data ?? null
 })

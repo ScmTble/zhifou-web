@@ -25,25 +25,36 @@
 </template>
 
 <script setup lang="ts">
+import { useMessage } from 'naive-ui';
 import useCache from '~/store/cache';
 const title = ref("广场")
 useHead({
   title: title.value
 })
 const cache = useCache();
+const message = useMessage();
+
 const list = ref<Post.PostInfo[]>([]);
 const loading = ref(false);
 let offset = ref(0);
 
+// 获取新的动态
 const handleRefresh = () => {
   if (loading.value) {
     return
   }
   loading.value = true
   $fetch('/api/post/recommend', { query: { offset: offset.value } }).then(res => {
-    offset.value = offset.value + 5;
-    list.value.push(...res)
-    loading.value = false
+    loading.value = false;
+    if (res) {
+      // 有响应
+      offset.value = offset.value + res.length;
+      list.value.push(...res)
+    } else {
+      // 响应内容为空
+      message.warning("已经到底了")
+    }
+
   }).catch(() => {
     loading.value = false
   })
@@ -52,9 +63,16 @@ const handleRefresh = () => {
 onMounted(() => {
   loading.value = true
   $fetch('/api/post/recommend', { query: { offset: offset.value } }).then(res => {
-    offset.value = offset.value + 5;
-    list.value.push(...res)
-    loading.value = false
+    loading.value = false;
+    if (res) {
+      // 有响应
+      offset.value = offset.value + res.length;
+      list.value.push(...res)
+    } else {
+      // 响应内容为空
+      message.warning("已经到底了")
+    }
+
   }).catch(() => {
     loading.value = false
   })

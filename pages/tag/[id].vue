@@ -20,8 +20,10 @@
 </template>
 
 <script setup lang="ts">
-
+import { useMessage } from 'naive-ui';
 const route = useRoute();
+const message = useMessage();
+
 const tag_id = Number(route.params.id)
 const last_id = ref<string>("9223372036854775807")
 const page_num = 2
@@ -29,6 +31,7 @@ const dynamics = ref<Post.PostInfo[]>([])
 const loading = ref<boolean>(false);
 const { data: tag } = await useFetch<any>(`/api/tag/${tag_id}`)
 
+// 获取新的动态
 const handleRefresh = () => {
   if (loading.value) {
     return
@@ -41,9 +44,16 @@ const handleRefresh = () => {
       page_num: page_num
     }
   }).then((res: any) => {
-    last_id.value = res[res.length - 1].id
-    dynamics.value.push(...res)
     loading.value = false;
+    if (res) {
+      // 有响应
+      last_id.value = res[res.length - 1].id
+      dynamics.value.push(...res)
+    } else {
+      // 响应内容为空
+      message.warning("已经到底了")
+    }
+
   }).catch(() => {
     loading.value = false;
   })
@@ -64,9 +74,16 @@ onMounted(() => {
       page_num: page_num
     }
   }).then((res: any) => {
-    last_id.value = res[res.length - 1].id
-    dynamics.value.push(...res)
     loading.value = false;
+    if (res) {
+      // 有响应
+      last_id.value = res[res.length - 1].id
+      dynamics.value.push(...res)
+    } else {
+      // 响应内容为空
+      message.warning("已经到底了")
+    }
+
   }).catch(() => {
     loading.value = false;
   })

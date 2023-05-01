@@ -6,7 +6,9 @@ export default defineEventHandler(async (event) => {
         method: 'POST',
         body: body
     })
-    setCookie(event, 'Authorization', data.data.token)
+    setCookie(event, 'Authorization', data.data.token, {
+        maxAge: 86400
+    })
 
-    return data.data
+    return data?.data ?? null
 })
