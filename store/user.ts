@@ -9,7 +9,7 @@ const useUser = defineStore('user', {
             authModalShow,
             authModelTab,
             is_admin: false,
-            id: 0,
+            id: "",
             username: '',
             nickname: '',
             avatar: "",
@@ -51,7 +51,7 @@ const useUser = defineStore('user', {
     },
     getters: {
         isLogin(state): boolean {
-            return state.id > 0;
+            return state.id != "";
         },
     },
 })

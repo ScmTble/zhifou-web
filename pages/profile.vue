@@ -4,12 +4,13 @@
     <n-list class="main-content-wrap profile-wrap" hoverable clickable bordered v-if="userStore.isLogin">
       <!-- 基础信息 -->
       <template #header>
-        <ProfileInfo />
+        <ProfileInfo :avatar="userStore.avatar" :id="userStore.id" :username="userStore.username"
+          :nickname="userStore.nickname" />
       </template>
       <n-tabs pane-style="padding-top: 0px" class="profile-tabs-wrap" :tabs-padding="20" type="line"
         default-value="dynamic" animated>
         <n-tab-pane name="dynamic" tab="动态">
-          <ProfileDynamics />
+          <ProfileDynamics :id="userStore.id" />
         </n-tab-pane>
       </n-tabs>
     </n-list>

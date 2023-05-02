@@ -2,7 +2,15 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     head: {
-      titleTemplate: "%s | 知否"
+      titleTemplate: "%s | 知否",
+      meta: [{ charset: 'utf-8' }],
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.ico',
+        },
+      ],
     }
   },
   css: ['@/assets/css/main.less'],

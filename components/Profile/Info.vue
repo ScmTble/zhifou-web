@@ -1,22 +1,26 @@
 <template>
   <div class="profile-baseinfo">
     <div class="avatar">
-      <n-avatar size="large" :src="userStore.avatar" />
+      <n-avatar size="large" :src="props.avatar" />
     </div>
     <div class="base-info">
       <div class="username">
-        <strong>{{ userStore.nickname }}</strong>
-        <span> @{{ userStore.username }} </span>
+        <strong>{{ props.nickname }}</strong>
+        <span> @{{ props.username }} </span>
       </div>
-      <div class="uid">UID. {{ userStore.id }}</div>
+      <div class="uid">UID. {{ props.id }}</div>
     </div>
   </div>
 </template>
 
 
 <script setup lang="ts">
-import useUser from '@/store/user';
-const userStore = useUser();
+const props = defineProps<{
+  avatar: string,
+  nickname: string,
+  username: string,
+  id: string,
+}>();
 </script>
 
 <style lang="less" scoped>

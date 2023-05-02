@@ -18,12 +18,13 @@
 
 <script setup lang="ts">
 import { useMessage } from 'naive-ui';
-import useUser from '@/store/user';
 
-const userStore = useUser();
+const props = defineProps<{
+  id: string
+}>();
+
 const message = useMessage();
-
-const { dynamics, refresh, loading } = useDynamicsUserIdPageNum(userStore.id, message)
+const { dynamics, refresh, loading } = useDynamicsUserIdPageNum(props.id, message)
 
 onMounted(() => {
   refresh()

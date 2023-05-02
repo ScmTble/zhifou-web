@@ -71,7 +71,7 @@ export const useDynamicsPageNum = (tag_id: number, message: MessageApi) => {
 }
 
 
-export const useDynamicsUserIdPageNum = (user_id: number, message: MessageApi) => {
+export const useDynamicsUserIdPageNum = (user_id: string, message: MessageApi) => {
   // id
   let last_id = "9223372036854775807"
   // 动态列表

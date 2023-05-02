@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import Logo from "@/assets/logo.png";
+import Logo from "@/assets/logo.svg";
 import useUser from '@/store/user';
 
 const user = useUser()
