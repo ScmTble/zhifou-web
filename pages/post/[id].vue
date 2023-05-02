@@ -35,14 +35,14 @@ useHead({
 const cache = useCache();
 const postId = String(route.params.id)
 const showEmpty = computed(() => {
-  if (comments.value.length == 0 && cache.tmpCommentList.length == 0) {
+  if (comments?.value?.length == 0 && cache.tmpCommentList.length == 0) {
     return true
   }
   return false
 })
 
-const { data: dynamic } = await useFetch<any>(`/api/post/${postId}`)
-const { data: comments } = await useFetch<any>(`/api/comment/${postId}`)
+const { data: dynamic } = await useFetch<Post.PostInfo>(`/api/post/${postId}`)
+const { data: comments } = await useFetch<Comment.CommentInfo[]>(`/api/comment/${postId}`)
 
 </script>
 

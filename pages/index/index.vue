@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ClientOnly>
     <MainNav :title="title" />
     <n-list bordered>
       <n-list-item>
@@ -16,12 +16,12 @@
         <Dynamic :post="post" :action="false" />
       </n-list-item>
       <n-spin :show="loading">
-        <n-list-item class="bottom" @click="handleRefresh">
+        <n-list-item class="bottom" @click="refresh">
           <n-button text type="success">加载动态</n-button>
         </n-list-item>
       </n-spin>
     </n-list>
-  </div>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
@@ -34,48 +34,10 @@ useHead({
 const cache = useCache();
 const message = useMessage();
 
-const list = ref<Post.PostInfo[]>([]);
-const loading = ref(false);
-let offset = ref(0);
-
-// 获取新的动态
-const handleRefresh = () => {
-  if (loading.value) {
-    return
-  }
-  loading.value = true
-  $fetch('/api/post/recommend', { query: { offset: offset.value } }).then(res => {
-    loading.value = false;
-    if (res) {
-      // 有响应
-      offset.value = offset.value + res.length;
-      list.value.push(...res)
-    } else {
-      // 响应内容为空
-      message.warning("已经到底了")
-    }
-
-  }).catch(() => {
-    loading.value = false
-  })
-}
+const { list, refresh, loading } = useDynamicsOffset(message)
 
 onMounted(() => {
-  loading.value = true
-  $fetch('/api/post/recommend', { query: { offset: offset.value } }).then(res => {
-    loading.value = false;
-    if (res) {
-      // 有响应
-      offset.value = offset.value + res.length;
-      list.value.push(...res)
-    } else {
-      // 响应内容为空
-      message.warning("已经到底了")
-    }
-
-  }).catch(() => {
-    loading.value = false
-  })
+  refresh()
 })
 </script>
 

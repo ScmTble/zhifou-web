@@ -18,6 +18,6 @@ export default defineNuxtConfig({
       uploadGateway: "https://gin-oss.zeabur.app/upload",
       pageNum: 4,
     },
-    apiBase: 'https://zhifou-app.zeabur.app/v1'
+    apiBase: 'http://127.0.0.1:8000/v1'
   },
 })
