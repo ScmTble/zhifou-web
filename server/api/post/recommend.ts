@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     const cookie = parseCookies(event)
 
     const resp: any = await $fetch('/posts', {
-        baseURL: useRuntimeConfig().apiBase,
+        baseURL: useRuntimeConfig().public.apiBase,
         headers: cookie,
         query: {
             offset: query.offset

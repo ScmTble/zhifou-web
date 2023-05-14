@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
     const query = getQuery(event)
 
     const data: any = await $fetch("/user", {
-        baseURL: useRuntimeConfig().apiBase,
+        baseURL: useRuntimeConfig().public.apiBase,
         query
     })
 

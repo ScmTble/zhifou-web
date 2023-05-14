@@ -1,14 +1,14 @@
 <template>
   <n-form ref="loginRef" :model="loginForm" :rules="{
-      username: {
-        required: true,
-        message: '请输入账户名',
-      },
-      password: {
-        required: true,
-        message: '请输入密码',
-      },
-    }">
+    username: {
+      required: true,
+      message: '请输入账户名',
+    },
+    password: {
+      required: true,
+      message: '请输入密码',
+    },
+  }">
     <n-form-item-row label="账户" path="username">
       <n-input v-model:value="loginForm.username" placeholder="请输入用户名" @keyup.enter.prevent="handleLogin" />
     </n-form-item-row>

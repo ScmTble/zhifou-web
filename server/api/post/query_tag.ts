@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
     const cookie = parseCookies(event)
     const query = getQuery(event)
     const resp: any = await $fetch('/query_tag', {
-        baseURL: useRuntimeConfig().apiBase,
+        baseURL: useRuntimeConfig().public.apiBase,
         headers: cookie,
         query: {
             tag_id: query.tag_id,

@@ -90,9 +90,9 @@ export const useDynamicsUserIdPageNum = (user_id: string, message: MessageApi) =
       // 响应内容为空
       message.warning("已经到底了")
     }
-
+    loading.value = false;
   }
-  loading.value = false;
+
 
   return {
     dynamics,
@@ -126,9 +126,9 @@ export const useCollectDynamicsOffect = (num: number, message: MessageApi) => {
       // 响应内容为空
       message.warning("已经到底了")
     }
-
+    loading.value = false;
   }
-  loading.value = false;
+
 
   return {
     dynamics,

@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     const query = getQuery(event)
 
     const resp: any = await $fetch(`/collect`, {
-        baseURL: useRuntimeConfig().apiBase,
+        baseURL: useRuntimeConfig().public.apiBase,
         query,
         headers: cookie
     })

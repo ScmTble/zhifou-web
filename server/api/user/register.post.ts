@@ -2,7 +2,7 @@
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     const data: any = await $fetch("/auth/register", {
-        baseURL: useRuntimeConfig().apiBase,
+        baseURL: useRuntimeConfig().public.apiBase,
         method: 'POST',
         body: body
     })

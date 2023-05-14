@@ -8,7 +8,7 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           type: 'image/x-icon',
-          href: '/favicon.ico',
+          href: '/logo.svg',
         },
       ],
     }
@@ -25,7 +25,7 @@ export default defineNuxtConfig({
       imageThumbnail: "?x-oss-process=image/resize,m_fill,w_300,h_300,limit_0/auto-orient,1/format,png",
       uploadGateway: "https://gin-oss.zeabur.app/upload",
       pageNum: 4,
+      apiBase: 'http://127.0.0.1:8000/v1'
     },
-    apiBase: 'http://127.0.0.1:8000/v1'
   },
 })

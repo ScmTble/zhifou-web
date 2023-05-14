@@ -1,0 +1,5 @@
+{
+    "name": "zhifou",
+    "script": "/app/server/index.mjs",
+    "instances": "2"
+}

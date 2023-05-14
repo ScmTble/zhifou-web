@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
     const cookie = parseCookies(event)
     const body = await readBody(event)
     const data: any = await $fetch("/post", {
-        baseURL: useRuntimeConfig().apiBase,
+        baseURL: useRuntimeConfig().public.apiBase,
         method: 'POST',
         body: body,
         headers: cookie

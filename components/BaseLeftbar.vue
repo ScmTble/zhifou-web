@@ -30,8 +30,6 @@ const user = useUser()
   height: 100vh;
   position: fixed;
   right: calc(50% + var(--content-main) / 2 + 10px);
-  padding: 12px 0;
-  box-sizing: border-box;
 
   .logo-wrap {
     display: flex;
