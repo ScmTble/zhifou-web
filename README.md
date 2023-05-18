@@ -1,7 +1,7 @@
 <div align="center">
-  <p align="center">
+  <h2 align="center">
     知否项目前端
-  </p>
+  </h2>
 </div>
 
 
