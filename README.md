@@ -1,42 +1,25 @@
-# Nuxt 3 Minimal Starter
+<div align="center">
+  <p align="center">
+    知否项目前端
+  </p>
+</div>
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+## 简介
 
-Make sure to install the dependencies:
+使用Nuxt3开发，项目UI及界面设计来源于[paopao-ce](https://github.com/rocboss/paopao-ce)
 
+## 使用
+
+克隆代码库
 ```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
+git clone https://github.com/zhifouwit/web.git
+```
+安装依赖
+```bash
 pnpm install
 ```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
+运行
 ```bash
-npm run dev
+pnpm dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
