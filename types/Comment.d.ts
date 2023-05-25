@@ -9,9 +9,6 @@ declare module Comment {
         user: User.UserInfo,
         /** 内容 */
         content: string,
-
         created_time: number,
-        updated_time?: number,
-        deleted_time?: number,
     }
 }

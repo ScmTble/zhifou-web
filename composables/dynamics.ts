@@ -1,9 +1,9 @@
 import type { MessageApi } from 'naive-ui/es/message';
 
-// 首页获取推荐动态
+// 首页分页获取动态
 export const useDynamicsOffset = (message: MessageApi) => {
-  // 偏移量
-  let offset = 0;
+  // id
+  let last_id = "9223372036854775807"
   // 动态列表
   const list = ref<Post.PostInfo[]>([]);
   // 加载
@@ -12,10 +12,10 @@ export const useDynamicsOffset = (message: MessageApi) => {
   // 获取动态
   const refresh = async () => {
     loading.value = true;
-    const res = await $fetch('/api/post/recommend', { query: { offset: offset } })
+    const res = await $fetch('/api/post/recommend', { query: { last_id: last_id } })
     if (res) {
       // 有响应
-      offset = offset + res.length;
+      last_id = res[res.length - 1].id
       list.value.push(...res)
     } else {
       // 响应内容为空

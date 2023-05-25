@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
         baseURL: useRuntimeConfig().public.apiBase,
         headers: cookie,
         query: {
-            offset: query.offset
+            last_id: query.last_id,
+            page_num: useRuntimeConfig().public.pageNum
         }
     })
 

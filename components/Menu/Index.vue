@@ -79,8 +79,8 @@ const pathOptions = computed(() => {
 })
 </script>
 
-<!-- <style lang="less"> // 解决圆角问题
- .n-menu .n-menu-item-content::before {
-   border-radius: 21px;
- }
+<!-- <style>
+.n-menu .n-menu-item-content::before {
+  border-radius: 21px;
+}
 </style> -->
