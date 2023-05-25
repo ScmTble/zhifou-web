@@ -1,11 +1,12 @@
 <template>
   <div>
     <MainNav :title="title" />
-    <n-card title="基本信息" size="small" class="setting-card">
-      <SettingAvatar />
-
-      <SettingName />
-    </n-card>
+    <NuxtLayout name="content">
+      <n-card title="基本信息" size="small" class="setting-card">
+        <SettingAvatar />
+        <SettingName />
+      </n-card>
+    </NuxtLayout>
   </div>
 </template>
 

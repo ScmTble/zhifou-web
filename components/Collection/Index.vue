@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-dynamic-list">
+  <n-list hoverable clickable bordered class="dynamic-list">
     <n-list-item v-if="dynamics" v-for="post in dynamics" :key="post.id">
       <Dynamic :post="post" :action="false" />
     </n-list-item>
@@ -12,33 +12,27 @@
         <n-button text type="success">加载动态</n-button>
       </n-list-item>
     </n-spin>
-  </div>
+  </n-list>
 </template>
-
 
 <script setup lang="ts">
 import { useMessage } from 'naive-ui';
+const message = useMessage()
 
-const props = defineProps<{
-  id: string
-}>();
+// 偏移量
+let offset = 0;
 
-const message = useMessage();
-
-let last_id = "9223372036854775807"
-
-const { data: dynamics, pending } = await useFetch<Post.PostInfo[]>('/api/post/query_user', {
+const { data: dynamics, pending } = await useFetch<Post.PostInfo[]>('/api/collect/query', {
   query: {
-    user_id: props.id,
-    last_id: last_id,
+    offset: offset,
+    num: 4,
   },
   transform: (input) => {
     if (input) {
       if (input.length === 0) {
         return input
       }
-      // 更新last_id
-      last_id = input[input.length - 1].id
+      offset = offset + input.length;
     }
     return input
   }
@@ -46,10 +40,10 @@ const { data: dynamics, pending } = await useFetch<Post.PostInfo[]>('/api/post/q
 
 const refresh = async () => {
   pending.value = true
-  await useFetch<Post.PostInfo[]>('/api/post/query_user', {
+  await useFetch<Post.PostInfo[]>('/api/collect/query', {
     query: {
-      user_id: props.id,
-      last_id: last_id,
+      offset: offset,
+      num: 4,
     },
     transform: (input) => {
       if (input) {
@@ -57,9 +51,8 @@ const refresh = async () => {
           message.warning("已经到底了")
           return input
         }
-        // 更新last_id
-        last_id = input[input.length - 1].id
-        dynamics.value?.push(...input)
+        offset = offset + input.length;
+        dynamics.value?.push(...input);
       } else {
         message.warning("已经到底了")
       }
@@ -70,7 +63,6 @@ const refresh = async () => {
 }
 
 </script>
-
 
 <style lang="less" scoped>
 .bottom {

@@ -8,17 +8,14 @@ import {
   HomeOutline,
   BookmarkOutline,
   NotificationsOutline,
-  HeartOutline,
   LeafOutline,
   SettingsOutline,
   InfiniteSharp,
 } from '@vicons/ionicons5';
 import useMain from '@/store/main';
-import useUser from '@/store/user';
 const route = useRoute();
 const router = useRouter();
 const main = useMain()
-const user = useUser();
 
 const goRouter = (path: string, item: any = {}) => {
   router.push(path);
@@ -29,7 +26,7 @@ watch(route, () => {
 })
 
 const pathOptions = computed(() => {
-  let menuList = [
+  return [
     {
       label: '广场',
       key: '/',
@@ -41,41 +38,36 @@ const pathOptions = computed(() => {
       key: '/topic',
       icon: () => h(InfiniteSharp),
       href: '/topic',
-    }]
-  if (user.isLogin) {
-    menuList.push({
+    }, {
       label: '主页',
       key: '/profile',
       icon: () => h(LeafOutline),
       href: '/profile',
     },
-      {
-        label: '消息',
-        key: '/notification',
-        icon: () => h(NotificationsOutline),
-        href: '/notification',
-      },
-      {
-        label: '收藏',
-        key: '/collection',
-        icon: () => h(BookmarkOutline),
-        href: '/collection',
-      },
-      // {
-      //   label: '点赞',
-      //   key: '/star',
-      //   icon: () => h(HeartOutline),
-      //   href: '/star',
-      // },
-      {
-        label: '设置',
-        key: '/setting',
-        icon: () => h(SettingsOutline),
-        href: '/setting',
-      })
-    return menuList
-  }
-  return menuList
+    {
+      label: '消息',
+      key: '/notification',
+      icon: () => h(NotificationsOutline),
+      href: '/notification',
+    },
+    {
+      label: '收藏',
+      key: '/collection',
+      icon: () => h(BookmarkOutline),
+      href: '/collection',
+    },
+    // {
+    //   label: '点赞',
+    //   key: '/star',
+    //   icon: () => h(HeartOutline),
+    //   href: '/star',
+    // },
+    {
+      label: '设置',
+      key: '/setting',
+      icon: () => h(SettingsOutline),
+      href: '/setting',
+    }]
 })
 </script>
 

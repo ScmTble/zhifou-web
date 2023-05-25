@@ -1,9 +1,7 @@
 <template>
   <div class="app-container">
     <div class="main-wrap">
-      <ClientOnly>
-        <BaseLeftbar />
-      </ClientOnly>
+      <BaseLeftbar />
       <div class="content-wrap">
         <slot />
       </div>

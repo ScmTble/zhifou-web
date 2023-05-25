@@ -5,12 +5,9 @@
     </div>
 
     <Menu />
-
-    <Account v-if="user.isLogin" />
-
-    <AccountLogin v-else />
-
     <ClientOnly>
+      <Account v-if="user.isLogin" />
+      <AccountLogin v-else />
       <Auth />
     </ClientOnly>
   </div>
