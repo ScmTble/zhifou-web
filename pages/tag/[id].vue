@@ -29,21 +29,18 @@ const { data: tag } = await useFetch<any>(`/api/tag/${tag_id}`)
 
 let last_id = "9223372036854775807"
 
-const { data: dynamics, pending } = await useFetch('/api/post/query_tag', {
+const { data: dynamics, pending } = await useFetch<Post.PostInfo[]>('/api/post/query_tag', {
   query: {
     tag_id: tag_id,
     last_id: last_id,
-  },
-  transform: (input) => {
-    if (input) {
-      if (input.length === 0) {
-        return input
-      }
-      // 更新last_id
-      last_id = input[input.length - 1].id
-    }
-    return input
   }
+})
+
+onMounted(() => {
+  let [lastPost] = dynamics.value?.slice(-1) ?? [{
+    id: "9223372036854775807"
+  }]
+  last_id = lastPost.id
 })
 
 const title = "#" + tag.value.tag
